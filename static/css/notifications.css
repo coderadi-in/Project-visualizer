@@ -1,0 +1,48 @@
+.notifications-container {
+    position: fixed;
+    bottom: 50px;
+    width: 100vw;
+    justify-content: end;
+    padding: 0 50px;
+}
+
+.notifications-section {
+    background-color: var(--background);
+    overflow-y: auto;
+    border-radius: 20px;
+    padding: 10px;
+    width: max(30vw, 300px);
+    max-height: 50vh;
+    z-index: 99;
+    box-shadow: 0 0 10px -5px var(--text);
+    cursor: pointer;
+    opacity: 0;
+    display: none;
+}
+
+.notifications-section .body {display: none;}
+.notifications-section .body .notification {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.notifications-section .body .notification.team {background-color: #FFCCCC;}
+.notifications-section .body .notification.user {background-color: #CCFFCC;}
+.notifications-section .body .notification.app {background-color: #FFFFCC;}
+
+.notifications-section .body .notification:hover .badge {background-color: var(--background);}
+
+.notifications-section .body .notification .content {align-items: stretch;}
+
+.notifications-section .body .notification .badge {
+    width: 5px;
+    align-self: stretch;
+}
+
+.notifications-section .body .notification .badge.team {background-color: #FF9393;}
+.notifications-section .body .notification .badge.user {background-color: #93FF93;}
+.notifications-section .body .notification .badge.app {background-color: #CCCC93;}
+
+@media (max-width: 425px) {
+    .notifications-container {padding: 20px;}
+}

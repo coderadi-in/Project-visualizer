@@ -1,0 +1,112 @@
+.main {padding: 20px;}
+
+.main .head .list {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.settings {
+    border-radius: 20px;
+    padding: 20px;
+    background-color: var(--surface);
+}
+
+#appearance .setting {
+    padding: 10px;
+    background-color: var(--background);
+    border-radius: 10px;
+}
+
+#appearance .btn {
+width: 150px;
+height: 44px;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px -5px black;
+}
+
+#appearance #dark {background: linear-gradient(135deg, #2C2C31, #1A1A1D, #0E0E10);}
+#appearance #light {background: linear-gradient(135deg, #7CACFF, #C0D8FF, #FFFFFF);}
+
+#appearance #blue {background-color: #4C8EFF;}
+#appearance #green {background-color: #4CFF8E;}
+#appearance #red {background-color: #FF4C4C;}
+#appearance #yellow {background-color: #FFFF4C;}
+
+#appearance #classic {background: linear-gradient(135deg, #93FF93, #FF9393, #4C8EFF);}
+#appearance #modern {background: linear-gradient(135deg, #C0D8FF, #7CACFF, #4C8EFF);}
+
+#appearance .icon-btn {
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px -5px black;
+    padding: 10px 20px;
+}
+
+#profile .areas .area {width: 100%;}
+#profile #social-links .input.title {width: 30%;}
+#profile #social-links .input.addr {width: 70%;}
+
+#security .inp-grp {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#security .inp-grp .input {
+    border: none;
+    padding: 0;
+}
+
+#security .inp-grp .btn {padding: 0;}
+
+#secucity input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.switch-box {
+    height: 40px;
+    width: 80px;
+    border-radius: 50px;
+    background-color: var(--secondary);
+    padding: 5px;
+}
+
+.switch-ball {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: var(--primary);
+}
+
+#security #danger {justify-content: end;}
+#security #danger .icon-btn {background-color: #FF9393;}
+
+@media (max-width: 768px) {
+    #profile .areas {flex-wrap: wrap;}
+}
+
+@media (max-width: 680px) {
+    .main .head {justify-content: end;}
+    .main .head .option {width: 100%;}
+}
+
+@media (max-width: 568px) {
+    .main .head .option {justify-content: end;}
+    .main .head .h1 {width: 100%;}
+}
+
+@media (max-width: 425px) {
+    #profile #social-links .row {
+        flex-direction: column;
+        align-items: start;
+        background-color: var(--background);
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    #profile #social-links .input.title {width: 80%;}
+    #profile #social-links .input.addr {width: 100%;}
+}

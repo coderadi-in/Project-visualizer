@@ -1,0 +1,69 @@
+.app-body {
+    width: 100vw;
+    background-color: var(--surface);
+}
+
+.header {padding: 20px;}
+
+.main {
+    padding: 50px;
+    height: 100%;
+}
+
+.main .auth-content {height: 100%;}
+
+.main .left {
+    width: 50%;
+    border-radius: 20px 0 0 20px;
+}
+
+.main .left .img {border-radius: 20px 0 0 20px;}
+
+.main .right {
+    padding: 20px;
+    background-color: white;
+    border-radius: 0 20px 20px 0;
+    width: max(50%, 350px);
+}
+
+.main .right .title {text-align: center;}
+.main .right .form .link {text-align: center;}
+
+.main .right .icon-btn {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+}
+
+.main .right .bottom {padding: 10px;}
+
+.footer {
+    padding: 10px;
+    justify-content: end;
+}
+
+.footer .text {text-align: right;}
+
+@media (max-width: 896px) {
+    .app-body {
+        background-image: url('/static/assets/images/auth-bg.png');
+        color: #FFF;
+    }
+
+    .header {backdrop-filter: blur(20px);}
+    .main .auth-content {justify-content: center;}
+    .main .left {display: none;}
+
+    .main .right {
+        border-radius: 20px;
+        color: #212122;
+    }
+}
+
+@media (max-width: 425px) {
+    .header .row .text {display: none;}
+    .main {padding: 20px;}
+    .main .right .bottom {justify-content: end;}
+    .main .right .bottom .text {display: none;}
+}

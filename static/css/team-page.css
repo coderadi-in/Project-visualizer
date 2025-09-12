@@ -1,0 +1,71 @@
+.main {padding: 20px;}
+
+.main .overview .mem-overview,
+.main .overview .mem-contribution {
+    width: 50%;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: var(--surface);
+}
+
+.main .overview .mem-overview .mem-data {position: relative;}
+.main .overview .mem-overview .mem-data:hover .mem-row-popup {
+    display: flex;
+    opacity: 1;
+}
+
+.main .overview .mem-overview .mem-row-popup {
+    background-color: var(--popup);
+    backdrop-filter: blur(10px);
+    position: absolute;
+    width: max-content;
+    display: none;
+    border-top: 1px solid var(--glass-border);
+    border-left: 1px solid var(--glass-border);
+    box-shadow: 2px 2px 3px var(--popup);
+    top: 10px;
+    left: min(80%, 100px);
+    z-index: 2;
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+.main .project-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.main .project-list .project .head {
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    background-color: var(--primary);
+    color: var(--background);
+}
+
+.main .project-list .project .body {
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+    align-items: end;
+    background-color: var(--surface);
+}
+
+.main .project-list .project .body .para {width: 100%;}
+.main .project-list .project .body .tag {width: fit-content;}
+
+@media (max-width: 680px) {
+    .main .overview {
+        scroll-snap-type: x mandatory;
+        overflow-x: auto;
+    }
+
+    .main .overview .mem-overview,
+    .main .overview .mem-contribution {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+    }
+}
+
+@media (max-width: 568px) {
+    .main .project-list {grid-template-columns: repeat(1, 1fr);}
+}

@@ -1,0 +1,55 @@
+.main {padding: 20px;}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--surface);
+}
+
+.settings-group#members {flex-direction: row;}
+#members #member-info {width: 70%;}
+#members #join-reqs {width: 30%;}
+
+.mem-row {
+    padding: 5px 10px;
+    background-color: var(--surface);
+    border-top: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+}
+
+.settings-group#danger-zone {background-color: #FF9393;}
+
+#switch-body {
+    width: 80px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: var(--secondary);
+    padding: 5px;
+}
+
+#switch-ball {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: var(--primary);
+}
+
+#switch-ball.private {
+    transform: translateX(40px);
+    background-color: #FF4C4C;
+}
+
+#delete-team {
+    width: fit-content;
+    background-color: #FF4C4C;
+}
+
+@media (max-width: 768px) {
+    .settings-group#members {flex-direction: column;}
+
+    #members #member-info,
+    #members #join-reqs {width: 100%;}
+}
