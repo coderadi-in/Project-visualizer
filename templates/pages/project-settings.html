@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ data.project.title }} &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/project-settings.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/objective.html' %}
+    {% include 'utils/team.html' %}
+    {% include 'utils/notifications.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main column gap-20">
+                <div class="head column gap-10">
+                    <h2 class="h2">Project settings</h2>
+                    <a href="/projects/{{ data.project.id }}" class="link">{{ data.project.title }}</a>
+                    <span id="project-id" style="display: none;">{{ data.project.id }}</span>
+                </div>
+
+                <section class="settings-group column gap-10" id="basic-info">
+                    <h3 class="h3">Basic info</h3>
+
+                    <form action="/projects/{{ data.project.id }}/settings/update/basic" method="post"
+                        class="form column gap-10">
+                        <div class="form-elem column gap-10">
+                            <label for="title">Project title</label>
+                            <input required type="text" name="title" id="title" placeholder="Project title"
+                                value="{{ data.project.title }}" class="input">
+                        </div>
+
+                        <div class="form-elem column gap-10">
+                            <label for="desc">Project description</label>
+                            <textarea name="desc" id="desc" placeholder="Project description"
+                                class="input">{{ data.project.desc }}</textarea>
+                        </div>
+
+                        <button type="submit" class="filled-btn">Update basic info</button>
+                    </form>
+                </section>
+
+                <section class="settings-group column gap-10" id="team-info">
+                    <h3 class="h3">Team info</h3>
+
+                    <form action="/projects/{{ data.project.id }}/settings/update/team" method="post"
+                        class="form column gap-10">
+                        <div class="form-elem row gap-20">
+                            <label for="current_team">Current team</label>
+                            
+                            <select required name="current_team" id="current_team" class="input">
+                                {% if data.selected_team %}
+                                    <option selected value="{{ data.selected_team.id }}">{{ data.selected_team.title }}</option>
+                                    <option value="0">No team</option>
+                                {% else %}
+                                    <option selected value="0">No team</option>    
+                                {% endif %}
+                                {% for team in data.teams %}
+                                <option value="{{ team.id }}">{{ team.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button type="submit" class="filled-btn">Update team info</button>
+                    </form>
+                </section>
+
+                <section class="settings-group column gap-10" id="danger-zone">
+                    <h3 class="h3">Danger zone</h3>
+
+                    <div class="row gap-20" id="visibility">
+                        <span class="text">Project visibility</span>
+
+                        <div class="row gap-10">
+                            <img src="{{ url_for('static', filename='assets/icons/public.png') }}" alt="Public"
+                                class="icon">
+
+                            <div class="switch" id="switch-body">
+                                {% if data.project.private %}
+                                <div class="ball private" id="switch-ball"></div>
+                                {% else %}
+                                <div class="ball" id="switch-ball"></div>
+                                {% endif %}
+                            </div>
+
+                            <img src="{{ url_for('static', filename='assets/icons/private.png') }}" alt="Private"
+                                class="icon">
+                        </div>
+                    </div>
+
+                    <button class="icon-btn" id="delete-project">
+                        <img src="{{ url_for('static', filename='assets/icons/delete-'+settings.theme+'.png') }}"
+                            alt="Delete project" class="icon">
+                        <span class="text">Delete project</span>
+                    </button>
+                </section>
+            </main>
+        </section>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/project-settings.js') }}"></script>
+</body>
+
+</html>

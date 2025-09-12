@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/notifications.css') }}">
+
+<section class="notifications-container flex">
+    <section class="notifications-section column gap-20">
+        <div class="head row h-sb">
+            <h2 class="h2">Notifications</h2>
+            <span class="text">({{ notification_count }})</span>
+        </div>
+
+        <div class="body column gap-5">
+            {% for notification in notifications %}
+            <div class="notification row gap-10 h-sb {{ notification.badge }}" id="{{ notification.id }}">
+                <div class="content row gap-5">
+                    <div class="badge {{ notification.badge }}"></div>
+
+                    <div class="text column">
+                        <h3 class="h3">{{ notification.title }}</h3>
+                        <span class="text">{{ notification.message }}</span>
+                    </div>
+                </div>
+
+                {% if notification.attachment %}
+                <a href="{{ notification.attachment }}" class="link">
+                    <img src="{{ url_for('static', filename='assets/icons/open-dark.png') }}" alt="View" class="icon">
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+    integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+    crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/notifications.js') }}"></script>

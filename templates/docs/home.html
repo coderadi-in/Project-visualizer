@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Docs &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/docs/home.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'docs/header.html' %}
+
+    <main class="main column gap-50">
+        <section class="hero flex gap-50">
+            <div class="image-content">
+                <img src="{{ url_for('static', filename='assets/images/docs-home.png') }}" alt="App preview"
+                    class="img">
+            </div>
+
+            <div class="text-content column gap-50">
+                <div class="title column gap-10">
+                    <h1 class="h1">Project visualizer</h1>
+                    <h3 class="h3">Visualize, Track, and Collaborate on Projects.</h3>
+                </div>
+
+                <h3 class="h3">An app for visualizing projects' progress in graphical form and collaborating with other
+                    people.</h3>
+
+                <div class="row gap-10">
+                    {% if current_user.is_authenticated %}
+                    <a href="/dashboard/" class="link filled-btn">Dashboard</a>
+                    {% else %}
+                    <a href="/auth/signup" class="link filled-btn">Sign up</a>
+                    {% endif %}
+
+                    <a href="" class="link outlined-btn">Contact the developer</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="topics column v-center gap-20">
+            <h2 class="h2">Main topics.</h2>
+
+            <div class="topic-list">
+                <a href="/docs/overview" class="link topic column gap-10" id="overview">
+                    <div class="head row gap-10">
+                        <img src="{{ url_for('static', filename='assets/icons/overview.png') }}" alt="Overview"
+                            class="icon">
+                        <h3 class="h3">Overview</h3>
+                    </div>
+
+                    <p class="para">Discover how Project Visualizer helps you see and manage all your projects clearly.
+                    </p>
+                </a>
+
+                <a href="/docs/profile" class="link topic column gap-10" id="profile">
+                    <div class="head row gap-10">
+                        <img src="{{ url_for('static', filename='assets/icons/profile.png') }}" alt="Overview"
+                            class="icon">
+                        <h3 class="h3">Profile</h3>
+                    </div>
+
+                    <p class="para">Personalize your experience by setting up skills, availability, and social profiles.
+                    </p>
+                </a>
+
+                <a href="/docs/teams" class="link topic column gap-10" id="teams">
+                    <div class="head row gap-10">
+                        <img src="{{ url_for('static', filename='assets/icons/team.png') }}" alt="Teams" class="icon">
+                        <h3 class="h3">Teams</h3>
+                    </div>
+
+                    <p class="para">Maximize teamwork with our comprehensive team creation and management tools.</p>
+                </a>
+
+                <a href="/docs/projects" class="link topic column gap-10" id="project">
+                    <div class="head row gap-10">
+                        <img src="{{ url_for('static', filename='assets/icons/project.png') }}" alt="Project"
+                            class="icon">
+                        <h3 class="h3">Projects</h3>
+                    </div>
+
+                    <p class="para">Achieve project success with our visual progress tracking and objective management.
+                    </p>
+                </a>
+            </div>
+        </section>
+
+        <section class="newsletter-container flex v-center h-center" id="newsletter-subscription">
+            <section class="newsletter column gap-10">
+                <h3 class="h3">Subscribe to the newsletter for app updates.</h3>
+
+                <form action="/app/subscription" method="post" class="form row">
+                    <input required type="email" name="email" placeholder="Your email address" class="input">
+                    <button type="submit" class="filled-btn">Subscribe</button>
+                </form>
+            </section>
+        </section>
+    </main>
+
+    <footer class="footer column gap-50">
+        <section class="foot flex h-se">
+            <div class="navigation column gap-10">
+                <h3 class="h3">Docs</h3>
+                <ul class="list column gap-10">
+                    <li><a href="/docs/overview" class="link">Overview</a></li>
+                    <li><a href="/docs/profile" class="link">Profile</a></li>
+                    <li><a href="/docs/teams" class="link">Teams</a></li>
+                    <li><a href="/docs/projects" class="link">Project</a></li>
+                </ul>
+            </div>
+
+            <div class="navigation column gap-10">
+                <h3 class="h3">Developer</h3>
+                <ul class="list column gap-10">
+                    <li><a href="" class="link">Email</a></li>
+                    <li><a href="https://github.com/coderadi-in" class="link">GitHub</a></li>
+                    <li><a href="https://www.instagram.com/coderadi.in" class="link">Instagram</a></li>
+                </ul>
+            </div>
+
+            <form action="/app/feedback" method="post" class="form column gap-10">
+                <div class="form-elem row gap-10">
+                    <label for="email">Email <span class="mini">(optional)</span></label>
+                    <input type="email" name="email" id="email" placeholder="Your email address" class="input">
+                </div>
+
+                <div class="form-elem column gap-10">
+                    <label for="feedback">Feedback*</label>
+                    <textarea required name="feedback" id="feedback" placeholder="Your feedback..."
+                        class="input"></textarea>
+                </div>
+
+                <button type="submit" class="filled-btn">Submit feedback</button>
+            </form>
+        </section>
+
+        <span class="text outro">built by <a href="https://www.coderadi.in/" class="link">&lt;coderadi/&gt;</a></span>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/docs-home.js') }}"></script>
+</body>
+
+</html>

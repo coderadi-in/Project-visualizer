@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search results &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/team.html' %}
+    {% include 'utils/notifications.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main column gap-20">
+                <div class="head column gap-20">
+                    <div class="title column">
+                        <span class="text">Showing results for</span>
+                        <h2 class="h2">{{ data.query }}.</h2>
+                    </div>
+
+                    <div class="filter res-row gap-10">
+                        <a href="#users-by-name" class="link tag">Users by name</a>
+                        <a href="#users-by-email" class="link tag">Users by email</a>
+                        <a href="#skills" class="link tag">Skills</a>
+                        <a href="#teams" class="link tag">Teams</a>
+                        <a href="#projects" class="link tag">projects</a>
+                    </div>
+                </div>
+
+                <section class="results" id="users-by-name">
+                    <h3 class="h3">Users by name</h3>
+
+                    {% for user in data.users_by_name %}
+                        <a href="/profile/?userid={{ user.id }}" class="link result">
+                            <img src="{{ user.pic }}" alt="Profile pic" class="icon">
+                            <span class="text">{{ user.name }}</span>
+                        </a>
+                    {% endfor %}
+                </section>
+
+                <section class="results" id="users-by-email">
+                    <h3 class="h3">Users by email</h3>
+
+                    {% for user in data.users_by_email %}
+                        <a href="/profile/?userid={{ user.id }}" class="link result">
+                            <img src="{{ user.pic }}" alt="Profile pic" class="icon">
+                            <span class="text">{{ user.name }}</span>
+                            <span class="text">{{ user.email }}</span>
+                        </a>
+                    {% endfor %}
+                </section>
+
+                <section class="results" id="skills">
+                    <h3 class="h3">Skills</h3>
+
+                    {% for skill in data.skills %}
+                        <a href="/profile/?skill={{ skill.skill }}" class="link result">{{ skill.category }} &bull; {{ skill.skill }}</a>
+                    {% endfor %}
+                </section>
+
+                <section class="results" id="teams">
+                    <h3 class="h3">Teams</h3>
+
+                    {% for team in data.teams %}
+                        <a href="/teams/{{ team.id }}/" class="link result">{{ team.title }} &bull; {{ team.members }} members</a>
+                    {% endfor %}
+                </section>
+
+                <section class="results" id="projects">
+                    <h3 class="h3">Projects</h3>
+
+                    {% for project in data.projects %}
+                        <a href="/projects/{{ project.id }}/" class="link result">{{ project.title }}</a>
+                    {% endfor %}
+                </section>
+            </main>
+        </section>
+    </section>
+</body>
+</html>

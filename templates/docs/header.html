@@ -1,0 +1,21 @@
+<style>
+    .header {padding: 20px;}
+</style>
+
+{% include 'components/msg.html' %}
+<header class="header row h-sb">
+    {% include 'components/app-title.html' %}
+
+    <div class="options row gap-20">
+        <button class="btn" id="theme-btn">
+            <img src="{{ url_for('static', filename='assets/icons/theme-'+settings.theme+'.png') }}" alt="Theme"
+                class="icon">
+        </button>
+
+        {% if current_user.is_authenticated %}
+        <a href="/dashboard/" class="link filled-btn">Dashboard</a>
+        {% else %}
+        <a href="/auth/signup" class="link filled-btn">Sign up</a>
+        {% endif %}
+    </div>
+</header>

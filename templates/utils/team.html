@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css') }}">
+
+<section class="popup-container" id="team-popup">
+    <section class="popup-content column gap-20">
+        <div class="head row gap-20">
+            <button class="btn" id="back">
+                <img src="{{ url_for('static', filename='assets/icons/back.png') }}" alt="Back" class="icon">
+            </button>
+
+            <h2 class="h2">New team</h2>
+        </div>
+
+        <form action="/teams/new" method="post" class="form column gap-20">
+            <input required type="text" name="title" placeholder="Team title" class="input">
+            <button type="submit" class="filled-btn">Create new team</button>
+        </form>
+    </section>
+</section>

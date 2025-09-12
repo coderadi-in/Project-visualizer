@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+
+<header class="header res-row h-sb gap-10">
+    <div class="options row gap-10" id="left">
+        <button class="btn" id="open-sidebar">
+            <img src="{{ url_for('static', filename='assets/icons/sidebar-'+settings.theme+'.png') }}" alt="Toggle sidebar" class="img">
+        </button>
+
+        <form action="/search/" method="get" class="form row gap-10">
+            <input required minlength="3" type="search" name="query" placeholder="Search bar" class="input" id="search">
+            <button type="submit" class="btn">
+                <img src="{{ url_for('static', filename='assets/icons/search-'+settings.theme+'.png') }}" alt="Search" class="img">
+            </button>
+        </form>
+    </div>
+
+    <div class="options row gap-10" id="right">
+        <span class="mini" id="userid" style="display: none;">{{ current_user.id }}</span>
+
+        <a href="/users/" class="link">Users</a>
+        <a href="/docs/" class="link">Docs</a>
+
+        <button class="btn" id="notifications">
+            <img src="{{ url_for('static', filename='assets/icons/notify-'+settings.theme+'.png') }}" alt="Notifications" class="img"
+                id="notifications-icon">
+            {% if notification_count > 0 %}
+                <span class="badge" id="notification-count"></span>
+            {% endif %}
+        </button>
+
+        <a href="/profile/" class="link btn" id="profile">
+            <img src="{{ current_user.pic }}" alt="Profile" class="img">
+        </a>
+    </div>
+</header>
+
+<script src="{{ url_for('static', filename='js/header.js') }}"></script>
