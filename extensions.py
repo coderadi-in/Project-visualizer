@@ -33,8 +33,8 @@ oauth = OAuth()
 def init_oauth(server):
     google = oauth.register(
         name='google',
-        client_id=os.environ.get('GOOGLE_ID'),
-        client_secret=os.environ.get('GOOGLE_SECRET'),
+        client_id=os.getenv('GOOGLE_ID'),
+        client_secret=os.getenv('GOOGLE_SECRET'),
         access_token_url='https://oauth2.googleapis.com/token',
         authorize_url='https://accounts.google.com/o/oauth2/v2/auth',
         api_base_url='https://www.googleapis.com/oauth2/v3/',
@@ -191,3 +191,4 @@ def refresh_contribution(project: Project):
             member.contribution = contribution
 
             db.session.commit()
+
