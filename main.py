@@ -15,6 +15,10 @@ from routers.team import team
 from routers.docs import docs
 from routers.app import app
 
+# ! Loading environment variables
+# load_dotenv('.venv/vars.env')
+load_dotenv('/etc/secrets/vars.env')
+
 # ! Building server
 server = Flask(__name__)
 server.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
@@ -40,3 +44,4 @@ def unauthorized_(error):
     flash("Login required", "warning")
 
     return redirect(url_for('auth.signup'))
+
