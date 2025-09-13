@@ -19,6 +19,7 @@ from flask_login import (
 
 from authlib.integrations.flask_client import OAuth
 from werkzeug.utils import secure_filename
+from werkzeug.middleware.proxy_fix import ProxyFix
 from datetime import time
 import os
 
@@ -191,4 +192,5 @@ def refresh_contribution(project: Project):
             member.contribution = contribution
 
             db.session.commit()
+
 
