@@ -1,0 +1,46 @@
+.main {padding: 20px;}
+
+.main .head .form.search {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    width: 100%;
+}
+
+.main .head .form.search .input {
+    border: none;
+    padding: 0;
+    width: 100%;
+}
+
+.main .head .options {justify-content: end;}
+
+.main .head .options .icon-btn {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.main .head .form.search .btn {padding: 0;}
+
+.main .body .team .head {
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    background-color: var(--primary);
+    color: var(--background);
+}
+
+.main .body .team .head .tag {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.main .body .team .body {
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid var(--primary);
+}
+
+@media (max-width: 568px) {
+    .main .options .icon-btn .text {display: none;}
+}

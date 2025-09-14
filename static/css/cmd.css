@@ -1,0 +1,35 @@
+.main {padding: 20px;}
+
+.main #users .user {
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: var(--surface);
+}
+
+.main #users .content {align-items: stretch;}
+
+.badge {
+    width: 5px;
+    align-self: stretch;
+    background-color: var(--primary);
+}
+
+.main #users .content .pic {
+    border-radius: 10px;
+    width: 30px;
+    aspect-ratio: 1 / 1;
+}
+
+.main #skills .skill {
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: var(--surface);
+}
+
+.main #skills .content {align-items: stretch;}
+
+.main #skilltypes .skilltype {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--surface);
+}

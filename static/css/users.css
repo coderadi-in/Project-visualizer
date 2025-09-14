@@ -1,0 +1,39 @@
+.main {padding: 20px;}
+
+.main .options {width: 50%;}
+.form {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    width: 100%;
+}
+
+.form .input {
+    padding: 0;
+    border: none;
+    width: 100%;
+}
+
+.form .btn {padding: 0;}
+
+.body .user {
+    padding: 5px 10px;
+    border-radius: 10px;
+    transform: translateY(100px);
+    opacity: 0;
+    background-color: var(--surface);
+}
+
+.body .user .content {align-items: stretch;}
+
+.body .user .content .badge {
+    width: 5px;
+    align-self: stretch;
+    background-color: var(--primary);
+}
+
+.body .user .content .pic {
+    border-radius: 10px;
+    width: 30px;
+    aspect-ratio: 1 / 1;
+}
