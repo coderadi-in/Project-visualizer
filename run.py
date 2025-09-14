@@ -38,4 +38,5 @@ for folder in FOLDERS:
 
 # ! Starting the server
 if __name__ == "__main__":
-    socket.run(server, debug=True, host='0.0.0.0')
+
+    socket.run(server, debug=False, host='0.0.0.0', allow_unsafe_werkzeug=True)
