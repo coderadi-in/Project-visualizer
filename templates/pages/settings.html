@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/team.html' %}
+    {% include 'utils/notifications.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main flex-col gap-20">
+                <div class="head res-row h-sb gap-10">
+                    <div class="option res-row gap-10 h-sb">
+                        <h1 class="h1">Settings</h1>
+
+                        <ul class="list row gap-10">
+                            <li><a href="#appearance" class="link">Appearance</a></li>
+                            <li><a href="#profile" class="link">Profile</a></li>
+                            <li><a href="#security" class="link">Security</a></li>
+                            <li><a href="#advanced" class="link">Advanced</a></li>
+                        </ul>
+                    </div>
+
+                    <button class="filled-btn" id="update">Update settings</button>
+                </div>
+
+                <section class="settings column gap-20" id="appearance">
+                    <h3 class="h3">Appearance</h3>
+
+                    <div class="setting res-row gap-10" id="theme">
+                        <span class="text">Theme</span>
+                        <div class="options res-row gap-10">
+                            <button class="btn" id="dark"></button>
+                            <button class="btn" id="light"></button>
+                        </div>
+                    </div>
+
+                    <div class="setting res-row gap-10" id="accent">
+                        <span class="text">Accent</span>
+                        <div class="options res-row gap-10">
+                            <button class="btn" id="blue"></button>
+                            <button class="btn" id="green"></button>
+                            <button class="btn" id="red"></button>
+                            <button class="btn" id="yellow"></button>
+                        </div>
+                    </div>
+
+                    <div class="setting res-row gap-10" id="chart-color">
+                        <span class="text">Chart color scheme</span>
+                        <div class="options res-row gap-10">
+                            <button class="btn" id="classic"></button>
+                            <button class="btn" id="modern"></button>
+                        </div>
+                    </div>
+
+                    <div class="setting res-row gap-10" id="chart-type">
+                        <span class="text">Chart type</span>
+
+                        <div class="options res-row gap-10">
+                            <button class="icon-btn" id="doughnut">
+                                <img src="{{ url_for('static', filename='assets/icons/pie.png') }}" alt="Doughnut"
+                                    class="icon">
+                                <span class="text">Doughnut</span>
+                            </button>
+
+                            <button class="icon-btn" id="bar">
+                                <img src="{{ url_for('static', filename='assets/icons/bar.png') }}" alt="Bar"
+                                    class="icon">
+                                <span class="text">Bar</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="settings column gap-10" id="profile">
+                    <h3 class="h3">Profile</h3>
+
+                    <div class="areas flex gap-20">
+                        <div class="area column gap-10" id="skills">
+                            <span class="text">Skills</span>
+                            <input type="text" name="skill" value="" placeholder="Skill 1" class="input">
+                            <input type="text" name="skill" value="" placeholder="Skill 2" class="input">
+                            <input type="text" name="skill" value="" placeholder="Skill 3" class="input">
+                            <input type="text" name="skill" value="" placeholder="Skill 4" class="input">
+                            <input type="text" name="skill" value="" placeholder="Skill 5" class="input">
+                        </div>
+
+                        <div class="area column gap-20">
+                            <div class="area column gap-10">
+                                <span class="text">Working hours</span>
+
+                                <div class="res-row gap-10">
+                                    <div class="column gap-10">
+                                        <label for="from_">From</label>
+                                        <input type="time" name="from_" id="from_" class="input">
+                                    </div>
+
+                                    <div class="column gap-10">
+                                        <label for="to_">To</label>
+                                        <input type="time" name="to_" id="to_" class="input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="area column gap-10" id="social-links">
+                                <span class="text">Social links</span>
+
+                                <div class="row gap-5">
+                                    <input type="text" name="title" placeholder="Link title" class="input title">
+                                    <input type="url" name="address" placeholder="Link address" class="input addr">
+                                </div>
+
+                                <div class="row gap-5">
+                                    <input type="text" name="title" placeholder="Link title" class="input title">
+                                    <input type="url" name="address" placeholder="Link address" class="input addr">
+                                </div>
+
+                                <div class="row gap-5">
+                                    <input type="text" name="title" placeholder="Link title" class="input title">
+                                    <input type="url" name="address" placeholder="Link address" class="input addr">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="settings column gap-10" id="security">
+                    <h3 class="h3">Security</h3>
+
+                    <div class="row gap-10" id="pwd-rotation">
+                        <span class="text">Password rotation</span>
+
+                        <div class="switch-box">
+                            <div class="switch-ball"></div>
+                        </div>
+
+                        <span class="mini">This feature will be available from v1.0.0 .</span>
+                    </div>
+
+                    <div class="res-row gap-10" id="danger">
+                        <a href="/auth/logout" class="link icon-btn">
+                            <img src="{{ url_for('static', filename='assets/icons/logout.png') }}" alt="Logout"
+                                class="icon">
+                            <span class="text">Logout</span>
+                        </a>
+
+                        <a class="link icon-btn" id="delete-account">
+                            <img src="{{ url_for('static', filename='assets/icons/del-acc.png') }}" alt="Logout"
+                                class="icon">
+                            <span class="text">Delete account</span>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="settings column gap-10" id="advanced">
+                    <h3 class="h3">Advanced</h3>
+
+                    <div class="res-row gap-10" id="version">
+                        <span class="text">Version</span>
+                        <div class="options res-row gap-10">
+                            <button class="filled-btn" id="stable-v">{{ CURRENT_VERSION }}</button>
+                            <button class="filled-btn" id="pre-release">Switch to pre-release version</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </section>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+</body>
+
+</html>

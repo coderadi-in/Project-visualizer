@@ -1,0 +1,153 @@
+{
+  "coding": [
+    {"name": "Python", "hashtag": "python"},
+    {"name": "JavaScript", "hashtag": "javascript"},
+    {"name": "Java", "hashtag": "java"},
+    {"name": "TypeScript", "hashtag": "typescript"},
+    {"name": "C++", "hashtag": "cplusplus"},
+    {"name": "C#", "hashtag": "csharp"},
+    {"name": "PHP", "hashtag": "php"},
+    {"name": "Ruby", "hashtag": "ruby"},
+    {"name": "Go", "hashtag": "golang"},
+    {"name": "Rust", "hashtag": "rust"},
+    {"name": "Kotlin", "hashtag": "kotlin"},
+    {"name": "Swift", "hashtag": "swift"},
+    {"name": "R", "hashtag": "rlang"},
+    {"name": "Scala", "hashtag": "scala"}
+  ],
+  
+  "web_development": [
+    {"name": "HTML5", "hashtag": "html5"},
+    {"name": "CSS3", "hashtag": "css3"},
+    {"name": "React", "hashtag": "react"},
+    {"name": "Angular", "hashtag": "angular"},
+    {"name": "Vue.js", "hashtag": "vuejs"},
+    {"name": "Node.js", "hashtag": "nodejs"},
+    {"name": "Express.js", "hashtag": "expressjs"},
+    {"name": "Django", "hashtag": "django"},
+    {"name": "Flask", "hashtag": "flask"},
+    {"name": "Spring Boot", "hashtag": "springboot"},
+    {"name": "Ruby on Rails", "hashtag": "rubyonrails"},
+    {"name": "Laravel", "hashtag": "laravel"}
+  ],
+  
+  "mobile_development": [
+    {"name": "React Native", "hashtag": "reactnative"},
+    {"name": "Flutter", "hashtag": "flutter"},
+    {"name": "iOS Development", "hashtag": "iosdev"},
+    {"name": "Android Development", "hashtag": "androiddev"},
+    {"name": "Xamarin", "hashtag": "xamarin"},
+    {"name": "Ionic", "hashtag": "ionic"}
+  ],
+  
+  "database": [
+    {"name": "SQL", "hashtag": "sql"},
+    {"name": "MySQL", "hashtag": "mysql"},
+    {"name": "PostgreSQL", "hashtag": "postgresql"},
+    {"name": "MongoDB", "hashtag": "mongodb"},
+    {"name": "Redis", "hashtag": "redis"},
+    {"name": "Oracle", "hashtag": "oracle"},
+    {"name": "SQLite", "hashtag": "sqlite"},
+    {"name": "Cassandra", "hashtag": "cassandra"},
+    {"name": "Elasticsearch", "hashtag": "elasticsearch"}
+  ],
+  
+  "devops_cloud": [
+    {"name": "Docker", "hashtag": "docker"},
+    {"name": "Kubernetes", "hashtag": "kubernetes"},
+    {"name": "AWS", "hashtag": "aws"},
+    {"name": "Azure", "hashtag": "azure"},
+    {"name": "Google Cloud", "hashtag": "gcp"},
+    {"name": "Terraform", "hashtag": "terraform"},
+    {"name": "Ansible", "hashtag": "ansible"},
+    {"name": "Jenkins", "hashtag": "jenkins"},
+    {"name": "GitLab CI/CD", "hashtag": "gitlabcicd"},
+    {"name": "GitHub Actions", "hashtag": "githubactions"}
+  ],
+  
+  "data_science_ai": [
+    {"name": "Machine Learning", "hashtag": "machinelearning"},
+    {"name": "Deep Learning", "hashtag": "deeplearning"},
+    {"name": "Data Analysis", "hashtag": "dataanalysis"},
+    {"name": "Data Visualization", "hashtag": "dataviz"},
+    {"name": "TensorFlow", "hashtag": "tensorflow"},
+    {"name": "PyTorch", "hashtag": "pytorch"},
+    {"name": "Pandas", "hashtag": "pandas"},
+    {"name": "NumPy", "hashtag": "numpy"},
+    {"name": "SciKit-Learn", "hashtag": "sklearn"},
+    {"name": "Tableau", "hashtag": "tableau"},
+    {"name": "Power BI", "hashtag": "powerbi"}
+  ],
+  
+  "design_ux": [
+    {"name": "UI/UX Design", "hashtag": "uiux"},
+    {"name": "Figma", "hashtag": "figma"},
+    {"name": "Adobe XD", "hashtag": "adobexd"},
+    {"name": "Sketch", "hashtag": "sketch"},
+    {"name": "Adobe Photoshop", "hashtag": "photoshop"},
+    {"name": "Adobe Illustrator", "hashtag": "illustrator"},
+    {"name": "Adobe After Effects", "hashtag": "aftereffects"},
+    {"name": "Wireframing", "hashtag": "wireframing"},
+    {"name": "Prototyping", "hashtag": "prototyping"}
+  ],
+  
+  "marketing_digital": [
+    {"name": "SEO", "hashtag": "seo"},
+    {"name": "SEM", "hashtag": "sem"},
+    {"name": "Google Analytics", "hashtag": "googleanalytics"},
+    {"name": "Social Media Marketing", "hashtag": "smm"},
+    {"name": "Content Marketing", "hashtag": "contentmarketing"},
+    {"name": "Email Marketing", "hashtag": "emailmarketing"},
+    {"name": "PPC", "hashtag": "ppc"},
+    {"name": "Growth Hacking", "hashtag": "growthhacking"},
+    {"name": "Inbound Marketing", "hashtag": "inboundmarketing"}
+  ],
+  
+  "business_finance": [
+    {"name": "Project Management", "hashtag": "projectmanagement"},
+    {"name": "Agile Methodology", "hashtag": "agile"},
+    {"name": "Scrum", "hashtag": "scrum"},
+    {"name": "Kanban", "hashtag": "kanban"},
+    {"name": "Financial Analysis", "hashtag": "financialanalysis"},
+    {"name": "Excel", "hashtag": "excel"},
+    {"name": "QuickBooks", "hashtag": "quickbooks"},
+    {"name": "SAP", "hashtag": "sap"},
+    {"name": "Salesforce", "hashtag": "salesforce"},
+    {"name": "Business Intelligence", "hashtag": "bi"}
+  ],
+  
+  "soft_skills": [
+    {"name": "Leadership", "hashtag": "leadership"},
+    {"name": "Communication", "hashtag": "communication"},
+    {"name": "Teamwork", "hashtag": "teamwork"},
+    {"name": "Problem Solving", "hashtag": "problemsolving"},
+    {"name": "Time Management", "hashtag": "timemanagement"},
+    {"name": "Critical Thinking", "hashtag": "criticalthinking"},
+    {"name": "Creativity", "hashtag": "creativity"},
+    {"name": "Adaptability", "hashtag": "adaptability"},
+    {"name": "Emotional Intelligence", "hashtag": "eq"}
+  ],
+  
+  "emerging_tech": [
+    {"name": "Blockchain", "hashtag": "blockchain"},
+    {"name": "Web3", "hashtag": "web3"},
+    {"name": "NFT", "hashtag": "nft"},
+    {"name": "Metaverse", "hashtag": "metaverse"},
+    {"name": "IoT", "hashtag": "iot"},
+    {"name": "AR/VR", "hashtag": "arvr"},
+    {"name": "Quantum Computing", "hashtag": "quantumcomputing"},
+    {"name": "Cybersecurity", "hashtag": "cybersecurity"},
+    {"name": "Ethical Hacking", "hashtag": "ethicalhacking"}
+  ],
+  
+  "languages": [
+    {"name": "English", "hashtag": "english"},
+    {"name": "Spanish", "hashtag": "spanish"},
+    {"name": "French", "hashtag": "french"},
+    {"name": "German", "hashtag": "german"},
+    {"name": "Chinese", "hashtag": "chinese"},
+    {"name": "Japanese", "hashtag": "japanese"},
+    {"name": "Arabic", "hashtag": "arabic"},
+    {"name": "Portuguese", "hashtag": "portuguese"}
+  ]
+}

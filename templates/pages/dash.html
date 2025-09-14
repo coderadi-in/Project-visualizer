@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Dashboard &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash.css') }}">
+</head>
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/team.html' %}
+    {% include 'utils/notifications.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main flex-col gap-20">
+                <h1 class="h1">Dashboard</h1>
+
+                <div class="overview column gap-10">
+                    <div class="head row h-sb">
+                        <h3 class="h3">Projects overview</h3>
+
+                        <button class="icon-btn" id="new-project">
+                            <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}" alt="New project" class="icon">
+                            <span class="text">New project</span>
+                        </button>
+                    </div>
+
+                    <ul class="list res-row gap-10">
+                        <li class="tag warning"><span class="text">Active: {{ active_projects }}</span></li>
+                        <li class="tag success"><span class="text">Completed: {{ completed_projects }}</span></li>
+                        <li class="tag secondary"><span class="text">Pending: {{ pending_projects }}</span></li>
+                        <li class="tag danger"><span class="text">Failed: {{ failed_projects }}</span></li>
+                        <li class="tag primary"><span class="text">Total: {{ total_projects }}</span></li>
+                    </ul>
+                </div>
+
+                <div class="project-list gap-20">
+                    {% for project in data.projects %}
+                        <div class="project">
+                            <div class="head row h-sb">
+                                <h2 class="h2">{{ project.title }}</h2>
+
+                                <a href="/projects/{{ project.id }}" class="link btn">
+                                    <img src="{{ url_for('static', filename='assets/icons/open-dark.png') }}" alt="Open" class="icon">
+                                </a>
+                            </div>
+
+                            <div class="body column gap-10">
+                                <p class="para">{{ project.desc }}</p>
+
+                                <div class="tags row gap-10">
+                                    {% if project.done %}
+                                        <span class="tag success">Completed</span>
+                                    {% elif project.start_date > data.today %}
+                                        <span class="tag secondary">Pending</span>
+                                    {% elif project.start_date <= data.today <= project.end_date and not project.isdone %}
+                                        <span class="tag warning">Active</span>
+                                    {% elif project.end_date < today and not project.isdone %}
+                                        <span class="tag danger">Failed</span>
+                                    {% endif %}
+                                    {% if project.team_id %}
+                                        <a href="/teams/{{ project.team_id }}" class="link tag secondary">Team project</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </main>
+        </section>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/dash.js') }}"></script>
+</body>
+</html>

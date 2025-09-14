@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Team {{ data.team.title }} &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/team-page.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/team.html' %}
+    {% include 'utils/mem.html' %}
+    {% include 'utils/notifications.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main flex-col gap-20">
+                <div class="head res-row h-sb gap-10">
+                    <div class="team-title row gap-10">
+                        <img src="{{ data.team.icon }}" alt="Team icon" class="icon team-icon">
+                        <h1 class="h1">{{ data.team.title }}</h1>
+                        <span class="mini" id="team-id" style="display: none;">{{ data.team.id }}</span>
+                    </div>
+
+                    {% if data.viewer.is_admin %}
+                    <a href="/teams/{{ data.team.id }}/settings/" class="link icon-btn">
+                        <img src="{{ url_for('static', filename='assets/icons/settings.png') }}" alt="Settings"
+                            class="icon">
+                        <span class="text">Settings</span>
+                    </a>
+                    {% endif %}
+                    {% if not data.viewer.is_member %}
+                    <a href="/teams/{{ data.team.id }}/reqs/new" class="link filled-btn">Send join request</a>
+                    {% endif %}
+                </div>
+
+                <p class="para">{{ data.team.desc }}</p>
+
+                <div class="overview flex gap-20">
+                    <div class="mem-overview column gap-10">
+                        <div class="head row h-sb">
+                            <h3 class="h3">Members overview</h3>
+
+                            {% if data.viewer.is_admin %}
+                            <button class="btn" id="new-member">
+                                <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}"
+                                    alt="Add" class="icon">
+                            </button>
+                            {% endif %}
+                        </div>
+
+                        <div class="body column gap-10">
+                            {% for member in data.members %}
+                            <div class="mem-data">
+                                {% if member.admin %}
+                                <div class="mem-row tag danger row h-sb">
+                                    <span class="text">{{ member.mem_name }} (Moderator)</span>
+                                    <span class="text">{{ member.contribution }}%</span>
+                                </div>
+                                <div class="mem-row-popup column gap-10">
+                                    <h3 class="h3">{{ member.mem_name }}</h3>
+                                    <hr class="divider">
+
+                                    <ul class="list column gap-10">
+                                        <li><a href="/profile/?userid={{ member.mem_id }}" class="link row gap-10">
+                                                <img src="{{ url_for('static', filename='assets/icons/open-'+settings.theme+'.png') }}"
+                                                    alt="Open profile" class="icon">
+                                                <span class="text">Open profile</span>
+                                            </a></li>
+                                    </ul>
+
+                                    <hr class="divider">
+                                    <span class="text">{{ member.contribution }}% contribution.</span>
+                                </div>
+                                {% elif member.mem_id == current_user.id %}
+                                <div class="mem-row tag primary row h-sb">
+                                    <span class="text">{{ member.mem_name }} (You)</span>
+                                    <span class="text">{{ member.contribution }}%</span>
+                                </div>
+                                <div class="mem-row-popup column gap-10">
+                                    <h3 class="h3">{{ member.mem_name }}</h3>
+                                    <hr class="divider">
+
+                                    <ul class="list column gap-10">
+                                        <li><a href="/profile/?userid={{ member.mem_id }}" class="link row gap-10">
+                                                <img src="{{ url_for('static', filename='assets/icons/open-'+settings.theme+'.png') }}"
+                                                    alt="Open profile" class="icon">
+                                                <span class="text">Open profile</span>
+                                            </a></li>
+
+                                        <li><a href="/teams/{{ data.team.id }}/members/delete?mem-id={{ member.id }}"
+                                                class="link row gap-10">
+                                                <img src="{{ url_for('static', filename='assets/icons/delete-'+settings.theme+'.png') }}"
+                                                    alt="Delete member" class="icon">
+                                                <span class="text">Exit team</span>
+                                            </a></li>
+                                    </ul>
+
+                                    <hr class="divider">
+                                    <span class="text">{{ member.contribution }}% contribution.</span>
+                                </div>
+                                {% else %}
+                                <div class="mem-row tag success row h-sb">
+                                    <span class="text">{{ member.mem_name }}</span>
+                                    <span class="text">{{ member.contribution }}%</span>
+                                </div>
+                                <div class="mem-row-popup column gap-10">
+                                    <h3 class="h3">{{ member.mem_name }}</h3>
+                                    <hr class="divider">
+
+                                    <ul class="list column gap-10">
+                                        <li><a href="/profile/?userid={{ member.mem_id }}" class="link row gap-10">
+                                                <img src="{{ url_for('static', filename='assets/icons/open-'+settings.theme+'.png') }}"
+                                                    alt="Open profile" class="icon">
+                                                <span class="text">Open profile</span>
+                                            </a></li>
+
+                                        {% if data.viewer.is_admin %}
+                                        <li><a href="/teams/{{ data.team.id }}/members/delete?mem-id={{ member.id }}"
+                                                class="link row gap-10">
+                                                <img src="{{ url_for('static', filename='assets/icons/delete-'+settings.theme+'.png') }}"
+                                                    alt="Delete member" class="icon">
+                                                <span class="text">Remove member</span>
+                                            </a></li>
+                                        {% endif %}
+                                    </ul>
+
+                                    <hr class="divider">
+                                    <span class="text">{{ member.contribution }}% contribution.</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mem-contribution column gap-10">
+                        <h3 class="h3">Member contribution</h3>
+
+                        <canvas id="contribution-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="project-list gap-20">
+                    {% for project in data.projects %}
+                    <div class="project">
+                        <div class="head row h-sb">
+                            <h2 class="h2">{{ project.title }}</h2>
+
+                            <a href="/projects/{{ project.id }}" class="link btn">
+                                <img src="{{ url_for('static', filename='assets/icons/open-dark.png') }}" alt="Open"
+                                    class="icon">
+                            </a>
+                        </div>
+
+                        <div class="body column gap-10">
+                            <p class="para">{{ project.desc }}</p>
+
+                            {% if project.done %}
+                            <span class="tag success">Completed</span>
+                            {% elif project.start_date > data.today %}
+                            <span class="tag secondary">Pending</span>
+                            {% elif project.start_date <= data.today <=project.end_date and not project.isdone %} <span
+                                class="tag warning">Active</span>
+                                {% elif project.end_date < today and not project.isdone %} <span class="tag danger">
+                                    Failed</span>
+                                    {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </main>
+        </section>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/team-page.js') }}"></script>
+</body>
+
+</html>

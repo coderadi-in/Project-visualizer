@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+
+<aside class="sidebar column h-sb">
+    <section class="top column gap-20">
+        <div class="title column gap-10">
+            <div class="head row gap-10 h-sb">
+                {% include 'components/app-title.html' %}
+                <button class="btn">
+                    <img src="{{ url_for('static', filename='assets/icons/sidebar-'+settings.theme+'.png') }}" alt="Toggle sidebar"
+                        class="icon" id="toggle-sidebar">
+                </button>
+            </div>
+
+            <hr class="divider">
+        </div>
+
+        <div class="navlinks column gap-10">
+            <h3 class="h3">Navigation</h3>
+
+            <a href="/dashboard/" class="link filled-btn row h-sb">
+                <span class="text">Dashboard</span>
+                <img src="{{ url_for('static', filename='assets/icons/arrow.png') }}" alt="Open" class="icon">
+            </a>
+
+            <a href="/profile/" class="link filled-btn row h-sb">
+                <span class="text">Profile</span>
+                <img src="{{ url_for('static', filename='assets/icons/arrow.png') }}" alt="Open" class="icon">
+            </a>    
+
+            <a href="/teams/?role=member" class="link filled-btn row h-sb">
+                <span class="text">Teams</span>
+                <img src="{{ url_for('static', filename='assets/icons/arrow.png') }}" alt="Open" class="icon">
+            </a>
+        </div>
+
+        <div class="navlinks column gap-10">
+            <h3 class="h3">New</h3>
+
+            <button class="icon-btn" id="new-team">
+                <img src="{{ url_for('static', filename='assets/icons/team.png') }}" alt="Add" class="icon">
+                <span class="text">Team</span>
+            </button>
+
+            <button class="icon-btn" id="new-project">
+                <img src="{{ url_for('static', filename='assets/icons/project.png') }}" alt="Add" class="icon">
+                <span class="text">Project</span>
+            </button>
+        </div>
+
+        <div class="infogroup column gap-10">
+            <h3 class="h3">Projects overview</h3>
+
+            <ul class="list res-row gap-10">
+                <li class="tag primary"><span>Total: {{ total_projects }}</span></li>
+                <li class="tag success"><span>Completed: {{ completed_projects }}</span></li>
+                <li class="tag warning"><span>Active: {{ active_projects }}</span></li>
+                <li class="tag secondary"><span>Not started: {{ pending_projects }}</span></li>
+                <li class="tag danger"><span>Failed: {{ failed_projects }}</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="bottom column gap-20">
+        <div class="navlinks column gap-10">
+            <h3 class="h3">Account</h3>
+
+            <a href="/settings/" class="link icon-btn" aria-disabled="true">
+                <img src="{{ url_for('static', filename='assets/icons/settings.png') }}" alt="Settings" class="icon">
+                <span class="text">Settings</span>
+            </a>
+
+            <a href="/auth/logout/" class="link icon-btn" id="logout">
+                <img src="{{ url_for('static', filename='assets/icons/logout.png') }}" alt="Logout" class="icon">
+                <span class="text">Logout</span>
+            </a>
+        </div>
+
+        <span class="mini" id="outro">built by coderadi</span>
+    </section>
+</aside>
+
+<script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Teams &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/team.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/team.html' %}
+    {% include 'utils/notifications.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main flex-col gap-20">
+                <div class="head column gap-10">
+                    <div class="top row gap-20">
+                        <h1 class="h1">Teams</h1>
+
+                        <form action="{{ url_for('team.index') }}" class="form search row gap-10 h-sb">
+                            <input type="search" name="title" placeholder="Serach by title" class="input">
+
+                            <button type="submit" class="btn">
+                                <img src="{{ url_for('static', filename='assets/icons/search-'+settings.theme+'.png') }}"
+                                    alt="Serach" class="icon">
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="options row gap-10">
+                        <a href="/teams/?role=member" class="link icon-btn">
+                            <img src="{{ url_for('static', filename='assets/icons/member-'+settings.theme+'.png') }}"
+                                alt="Member" class="icon">
+                            <span class="text">Member</span>
+                        </a>
+
+                        <a href="/teams/?role=moderator" class="link icon-btn">
+                            <img src="{{ url_for('static', filename='assets/icons/admin-'+settings.theme+'.png') }}"
+                                alt="Moderator" class="icon">
+                            <span class="text">Moderator</span>
+                        </a>
+
+                        <a href="/teams/?role=all" class="link icon-btn">
+                            <img src="{{ url_for('static', filename='assets/icons/allrole-'+settings.theme+'.png') }}"
+                                alt="All" class="icon">
+                            <span class="text">All</span>
+                        </a>
+
+                        <button class="icon-btn" id="new-team">
+                            <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}" alt="Add"
+                                class="icon">
+                            <span class="text">New team</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="body res-row gap-20">
+                    {% for team in data.teams %}
+                    <div class="team">
+                        <div class="head res-row h-sb gap-10">
+                            <h2 class="h2">{{ team.data.title }}</h2>
+
+                            <div class="data row gap-10">
+                                <div class="tag">{{ team.data.members }} member(s)</div>
+
+                                <a href="/teams/{{ team.data.id }}" class="link btn">
+                                    <img src="{{ url_for('static', filename='assets/icons/open-dark.png') }}"
+                                        alt="Open." class="icon">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="body res-row gap-10">
+                            <div class="tag success">{{ team.projects.completed }} completed.</div>
+                            <div class="tag secondary">{{ team.projects.pending }} pending.</div>
+                            <div class="tag warning">{{ team.projects.active }} active.</div>
+                            <div class="tag danger">{{ team.projects.failed }} failed.</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </main>
+        </section>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/team.js') }}"></script>
+</body>
+
+</html>

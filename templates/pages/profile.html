@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/team.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main flex-col gap-20">
+                <h1 class="h1">{{ data.user.name }}'s Profile</h1>
+
+                <div class="userinfo column gap-20">
+                    <div class="basicinfo row gap-20">
+                        <div class="profile-pic">
+                            <img src="{{ data.user.pic }}" alt="User's profile pic" class="img">
+                        </div>
+
+                        <div class="infogroup column">
+                            <h3 class="h3">{{ data.user.name }}</h3>
+                            <a href="mailto:{{ data.user.email }}" class="link">{{ data.user.email }}</a>
+                        </div>
+                    </div>
+
+                    {% if data.user.bio %}
+                        <p class="para">{{ data.user.bio }}</p>
+                    {% endif %}
+
+                    <div class="info column gap-10">
+                        <div class="infogroup column gap-10" id="project-overview">
+                            <h3 class="h3">Project's overview</h3>
+
+                            <ul class="list res-row gap-10">
+                                <li class="tag primary"><span>Total: {{ data.projects.total }}</span></li>
+                                <li class="tag success"><span>Completed: {{ data.projects.completed }}</span></li>
+                                <li class="tag warning"><span>Active: {{ data.projects.active }}</span></li>
+                                <li class="tag secondary"><span>Not started: {{ data.projects.pending }}</span></li>
+                                <li class="tag danger"><span>Failed: {{ data.projects.failed }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {% if data.user.id == current_user.id %}
+                <div class="accountinfo column gap-20">
+                    <h2 class="h2">Account info</h2>
+
+                    <form action="/profile/update" method="post" class="form column gap-20"
+                        enctype="multipart/form-data">
+                        <div class="form-elem column gap-10">
+                            <label for="name">Name</label>
+                            <input required type="text" id="name" name="name" value="{{ data.user.name }}"
+                                class="input">
+                        </div>
+
+                        <div class="form-elem column gap-10">
+                            <label for="email">Email</label>
+                            <input required type="email" id="email" name="email" value="{{ data.user.email }}"
+                                class="input">
+                        </div>
+
+                        <div class="form-elem column gap-10">
+                            <label for="pic">Change profile pic [1:1]</label>
+                            <input type="file" name="pic" id="pic" accept="image/*" class="input">
+                        </div>
+
+                        <div class="form-elem column gap-10">
+                            <label for="bio">Bio</label>
+                            <textarea name="bio" id="bio" class="input" maxlength="100" placeholder="Add bio">{{ data.user.bio }}</textarea>
+                        </div>
+
+                        <button type="submit" class="filled-btn">Update profile</button>
+                    </form>
+                </div>
+                {% endif %}
+
+                <div class="profileinfo column gap-20">
+                    <div class="head row h-sb">
+                        <h2 class="h2">Profile info</h2>
+                        {% if data.user.id == current_user.id %}
+                        <a href="/settings/" class="link outlined-btn">Update profile in settings.</a>
+                        {% endif %}
+                    </div>
+
+                    <div class="areas flex gap-20">
+                        <div class="area column gap-10" id="skills">
+                            <span class="text">Skills</span>
+                            {% for skill in data.skills %}
+                            <input readonly value="#{{ skill }}" class="input">
+                            {% endfor %}
+                        </div>
+
+                        <div class="area column gap-20">
+                            <div class="area column gap-10">
+                                <span class="text">Working hours</span>
+
+                                <div class="row gap-10">
+                                    <div class="column gap-10">
+                                        <label for="from_">From</label>
+                                        <input readonly type="time" value="{{ settings.from_hours }}" id="from_"
+                                            class="input">
+                                    </div>
+
+                                    <div class="column gap-10">
+                                        <label for="to_">To</label>
+                                        <input readonly type="time" value="{{ settings.to_hours }}" id="to_"
+                                            class="input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if data.sociallinks %}
+                            <div class="area column gap-10" id="social-links">
+                                <span class="text">Social links</span>
+
+                                <div class="res-row gap-10">
+                                    {% for link in data.sociallinks %}
+                                    <a target="_blank" href="{{ link.link }}" class="link outlined-btn">{{ link.title
+                                        }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </section>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+</body>
+
+</html>

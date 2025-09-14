@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ data.project.title }} &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}" data-chart-color="{{ settings.chart_color_schemes }}"
+    data-chart-type="{{ settings.chart_type }}" data-accent="{{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/objective.html' %}
+    {% include 'utils/team.html' %}
+    {% include 'utils/notifications.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main column gap-20">
+                <div class="title res-row h-sb gap-20">
+                    <h2 class="h2">{{ data.project.title }}</h2>
+                    <span class="mini" id="project-id" style="display: none;">{{ data.project.id }}</span>
+                    <span class="mini" id="viewer-id" style="display: none;">{{ data.viewer.id }}</span>
+                    {% if data.viewer.is_admin %}
+                    <a href="/projects/{{ data.project.id }}/settings/" class="link icon-btn">
+                        <img src="{{ url_for('static', filename='assets/icons/settings.png') }}" alt="Settings" class="icon">
+                        <span class="text">Settings</span>
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="overview flex gap-20">
+                    <div class="project-overview column gap-10">
+                        <p class="para">{{ data.project.desc }}</p>
+                        <hr class="divider">
+                        <div class="column gap-10">
+                            <h3 class="h3">Objectives</h3>
+                            <div class="res-row gap-10">
+                                <span class="tag success">{{ data.objectives_overview.completed }} completed</span>
+                                <span class="tag danger">{{ data.objectives_overview.incomplete }} left</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if data.team %}
+                    <div class="member-overview column gap-10">
+                        <div class="head row gap-10">
+                            <h3 class="h3">Members overview</h3>
+                            <span class="mini" id="team-id" style="display: none;">{{ data.team.id }}</span>
+                        </div>
+
+                        <canvas id="contribution-chart"></canvas>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="objectives column gap-10">
+                    <div class="head res-row gap-10 h-sb">
+                        <h3 class="h3">Objectives</h3>
+
+                        {% if data.access %}
+                        <button class="icon-btn" id="add-objective">
+                            <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}"
+                                alt="Add" class="icon">
+                            <span class="text">Add objective</span>
+                        </button>
+                        {% endif %}
+                    </div>
+
+                    <div class="body column gap-10">
+                        {% for objective in data.objectives %}
+                        <div class="objective row h-sb gap-10">
+                            <span class="text">{{ objective.task }}</span>
+
+                            {% if data.access %}
+                            <div class="options row gap-10">
+                                <button class="btn delete-objective" data-obj-id="{{ objective.id }}">
+                                    <img src="{{ url_for('static', filename='assets/icons/delete-'+settings.theme+'.png') }}"
+                                        alt="Delete" class="icon">
+                                </button>
+
+                                {% if objective.isdone %}
+                                <button class="btn mark-objective">
+                                    <img src="{{ url_for('static', filename='assets/icons/mark-'+settings.theme+'.png') }}"
+                                        alt="delete" class="icon checkbox" data-obj-id="{{ objective.id }}">
+                                </button>
+                                {% else %}
+                                <button class="btn">
+                                    <img src="{{ url_for('static', filename='assets/icons/checkbox-'+settings.theme+'.png') }}"
+                                        alt="delete" class="icon checkbox" data-obj-id="{{ objective.id }}">
+                                </button>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="charts row h-se">
+                    <div class="chart-content">
+                        <div class="chart-data">
+                            <canvas id="timeline-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-content">
+                        <div class="chart-data">
+                            <canvas id="task-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </section>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/project.js') }}"></script>
+</body>
+
+</html>

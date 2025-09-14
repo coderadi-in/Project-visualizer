@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Team Settings &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/team-settings.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'utils/project.html' %}
+    {% include 'utils/team.html' %}
+    {% include 'utils/notifications.html' %}
+
+    <section class="app-content">
+        {% include 'components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'components/header.html' %}
+
+            <main class="main column gap-20">
+                <a href="/teams/{{ data.team.id }}" class="link row gap-10">
+                    <img src="{{ data.team.icon }}" alt="Team icon" class="icon team-icon">
+                    <h2 class="h2">{{ data.team.title }}</h2>
+                    <span class="mini" id="team-id" style="display: none;">{{ data.team.id }}</span>
+                </a>
+
+                <section class="settings-group" id="team-info">
+                    <h3 class="h3">Team info</h3>
+                    <form action="/teams/{{ data.team.id }}/settings/update" method="post" class="form column gap-10"
+                        enctype="multipart/form-data">
+                        <div class="form-elem column gap-10">
+                            <label for="title">Team title</label>
+                            <input type="text" name="title" id="title" placeholder="Team title"
+                                value="{{ data.team.title }}" class="input">
+                        </div>
+
+                        <div class="form-elem column gap-10">
+                            <label for="desc">Team description</label>
+                            <textarea name="desc" id="desc" placeholder="Team description"
+                                class="input">{{ data.team.desc }}</textarea>
+                        </div>
+
+                        <div class="form-elem column gap-10">
+                            <label for="icon">Team icon</label>
+                            <input type="file" name="icon" id="icon" class="input" accept="image/*">
+                        </div>
+
+                        <button type="submit" class="filled-btn">Update team info</button>
+                    </form>
+                </section>
+
+                <section class="settings-group" id="members">
+                    <div class="area column gap-10" id="member-info">
+                        <h3 class="h3">Members</h3>
+
+                        {% for member in data.members %}
+                        <div class="mem-row row h-sb gap-20" id="{{ member.mem_id }}">
+                            <div class="text-content row gap-10">
+                                <span class="text">{{ member.mem_name }}</span>
+                                <span class="text">{{ member.contribution }}%</span>
+                            </div>
+
+                            <div class="options row gap-10">
+                                {% if member.admin %}
+                                <button class="btn remove-moderator" data-mem-id="{{ member.mem_id }}">
+                                    <img src="{{ url_for('static', filename='assets/icons/remove-admin-'+settings.theme+'.png') }}"
+                                        alt="Give admin access" class="icon">
+                                </button>
+                                {% else %}
+                                <button class="btn add-moderator" data-mem-id="{{ member.mem_id }}">
+                                    <img src="{{ url_for('static', filename='assets/icons/add-admin-'+settings.theme+'.png') }}"
+                                        alt="Give admin access" class="icon">
+                                </button>
+                                {% endif %}
+
+                                <button class="btn remove-member" data-mem-id="{{ member.mem_id }}">
+                                    <img src="{{ url_for('static', filename='assets/icons/delete-'+settings.theme+'.png') }}"
+                                        alt="Delete member" class="icon">
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="area column gap-10" id="join-reqs">
+                        <h3 class="h3">Join requests</h3>
+
+                        {% for req in data.joinreqs %}
+                        <div class="mem-row row h-sb gap-20">
+                            <a href="/profile/?userid={{ req.req }}" class="link">{{ req.name }}</a>
+
+                            <div class="options row gap-10">
+                                <a href="/teams/{{ data.team.id }}/reqs/accept?req-id={{ req.id }}"
+                                    class="link btn accept-btn">
+                                    <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}"
+                                        alt="Add req" class="icon">
+                                </a>
+
+                                <a href="/teams/{{ data.team.id }}/reqs/deny?req-id={{ req.id }}"
+                                    class="link btn deny-btn">
+                                    <img src="{{ url_for('static', filename='assets/icons/deny-'+settings.theme+'.png') }}"
+                                        alt="Add req" class="icon">
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <section class="settings-group" id="danger-zone">
+                    <h3 class="h3">Danger zone</h3>
+
+                    <div class="row gap-10" id="visibility">
+                        <span class="text">Team visibility</span>
+
+                        <div class="row gap-10">
+                            <img src="{{ url_for('static', filename='assets/icons/public.png') }}" alt="Public"
+                                class="icon">
+
+                            <div class="switch" id="switch-body">
+                                {% if data.team.private %}
+                                <div class="ball private" id="switch-ball"></div>
+                                {% else %}
+                                <div class="ball" id="switch-ball"></div>
+                                {% endif %}
+                            </div>
+
+                            <img src="{{ url_for('static', filename='assets/icons/private.png') }}" alt="Private"
+                                class="icon">
+                        </div>
+                    </div>
+
+                    <button class="icon-btn" id="delete-team">
+                        <img src="{{ url_for('static', filename='assets/icons/delete-'+settings.theme+'.png') }}"
+                            alt="Delete team" class="icon">
+                        <span class="text">Delete team</span>
+                    </button>
+                </section>
+            </main>
+        </section>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/team-settings.js') }}"></script>
+</body>
+
+</html>

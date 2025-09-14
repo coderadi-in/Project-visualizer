@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Signup &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/anim.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+</head>
+
+<body>
+    {% include 'components/msg.html' %}
+    <div class="app-body">
+        <header class="header row h-sb">
+            {% include 'components/app-title.html' %}
+            
+            <div class="row gap-10">
+                <span class="text">{{ CURRENT_VERSION }}</span>
+                <a href="/docs/" class="link filled-btn">Docs</a>
+            </div>
+        </header>
+
+        <main class="main">
+            <section class="auth-content flex">
+                <div class="left">
+                    <img src="{{ url_for('static', filename='assets/images/auth-bg.png') }}" alt="Preview" class="img">
+                </div>
+
+                <div class="right flex-col h-sb">
+                    <div class="top column gap-20">
+                        <h3 class="h3 title">Welcome to project visualizer</h3>
+
+                        <div class="column signup-content gap-20">
+                            <h3 class="h3">Sign up to continue.</h3>
+
+                            <form action="/auth/signup/" method="post" class="form column gap-20">
+                                <div class="column gap-10 inputs">
+                                    <input required type="text" name="name" placeholder="Your name" class="input">
+                                    <input required type="email" name="email" placeholder="Your email" class="input">
+                                    <input required type="password" name="password" placeholder="Create a password"
+                                        class="input">
+                                </div>
+
+                                <div class="column gap-10 options">
+                                    <button type="submit" class="filled-btn">Sign up</button>
+                                    <a href="/auth/login/" class="link">Already have an account? Login here.</a>
+                                </div>
+                            </form>
+
+                            <hr class="divider">
+
+                            <a href="/auth/login/google" class="link icon-btn">
+                                <img src="{{ url_for('static', filename='assets/icons/google.png') }}" alt="Google"
+                                    class="icon">
+                                <span class="text">Continue with Google</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bottom row h-sb">
+                        <span class="text">Built by coderadi</span>
+
+                        <div class="row gap-10">
+                            <a href="" class="link">
+                                <img src="{{ url_for('static', filename='assets/icons/email.png') }}" alt="Email"
+                                    class="icon">
+                            </a>
+
+                            <a href="https://www.instagram.com/coderadi.in" class="link">
+                                <img src="{{ url_for('static', filename='assets/icons/insta.png') }}" alt="Insta"
+                                    class="icon">
+                            </a>
+
+                            <a href="https://github.com/coderadi-in" class="link">
+                                <img src="{{ url_for('static', filename='assets/icons/git.png') }}" alt="GitHub"
+                                    class="icon">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer row gap-20">
+            <span class="text">Built by coderadi</span>
+            <span class="text">{{ CURRENT_VERSION }}</span>
+        </footer>
+    </div>
+</body>
+
+</html>
