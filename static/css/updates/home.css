@@ -1,0 +1,17 @@
+body {min-height: 100vh;}
+
+.icon-content {
+    background-color: var(--surface);
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.main {padding: 20px;}
+.main .overview * {text-align: center;}
+
+.main .update {
+    background-color: var(--popup);
+    box-shadow: 0 2px 10px -5px var(--border);
+    padding: 20px;
+    border-radius: 10px;
+}

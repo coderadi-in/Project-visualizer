@@ -1,0 +1,17 @@
+.sidebar {
+    background-color: var(--surface);
+    width: 25%;
+    height: 100dvh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.sidebar .app-title .logo {
+    box-shadow: 10px 10px 10px white inset, -10px -10px 10px #585858 inset;
+    transform: scale(0.99);
+    border-radius: 5px;
+}
+
+.sidebar .filled-btn {text-align: left;}

@@ -1,0 +1,32 @@
+.sidebar {
+    width: max(25%, 300px);
+    background-color: var(--surface);
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    height: 100dvh;
+}
+
+.sidebar #close-sidebar {position: relative;}
+.sidebar #close-sidebar .tooltip {left: 0;}
+.sidebar #close-sidebar:hover .tooltip {display: block;}
+
+.sidebar .app-title .logo{
+    box-shadow: 10px 10px 10px white inset, -10px -10px 10px #585858 inset;
+    transform: scale(0.99);
+    border-radius: 5px;
+}
+
+.sidebar #logout {background-color: #FF9393;}
+.sidebar #outro {text-align: center;}
+
+@media (max-width: 1100px) {
+    .sidebar {
+        position: absolute;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        z-index: 5;
+    }
+}

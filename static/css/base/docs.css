@@ -1,0 +1,39 @@
+.header {padding: 10px;}
+.main {padding: 20px;}
+.outro {justify-content: end;}
+.outro .icon.back {transform: rotate(180deg);}
+
+.footer {
+    background-color: var(--surface);
+    margin-top: 20px;
+    padding: 20px; 
+}
+
+.footer .feedback-form {width: 50%;}
+
+.footer .form .input {padding: 20px;}
+.footer .form .filled-btn {padding: 20px;}
+
+.footer .para {text-align: center;}
+
+@media (max-width: 768px) {
+    .footer .content {
+        flex-direction: column;
+        align-items: start;
+        gap: 50px;
+    }
+
+    .footer .content .feedback-form {width: 100%;}
+}
+
+@media (max-width: 568px) {
+    .header .icon-btn {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin: 20px;
+        background-color: var(--popup);
+        backdrop-filter: blur(5px);
+        border: 1px solid var(--surface);
+    }
+}

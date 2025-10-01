@@ -1,0 +1,48 @@
+.main {padding: 20px;}
+
+.main .card-info {
+    background-color: var(--surface);
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 50%;
+}
+
+.main #db-size {align-items: end;}
+
+.main .card-info .left,
+.main .card-info .right {width: 50%;}
+
+.main .card-info .card-btn {
+    background-color: var(--background);
+    cursor: pointer;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.db-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.db-table {
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.db-table .db_column {
+    background-color: var(--background);
+    padding: 10px;
+    border-top: 1px solid var(--primary);
+    border-bottom: 1px solid var(--primary);
+}
+
+.db-table .db_column.primary {
+    border-top: 1px solid #FF9393;
+    border-bottom: 1px solid #FF9393;
+}

@@ -1,0 +1,33 @@
+.main {padding: 20px;}
+.main .overview {width: max(50vw, 280px);}
+
+.main .overview {
+    background-color: var(--surface);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.main .img{
+    box-shadow: 0 0 4px var(--sub-text);
+    border-radius: 10px;
+    margin: 10px 0;
+    width: min(100%, 650px);
+}
+
+.main #visualization {
+    padding: 15px;
+    background-color: var(--surface);
+    border-left: 2px solid var(--accent-1);
+}
+
+.main #visibility {
+    padding: 15px;
+    background-color: var(--surface);
+    border-left: 2px solid var(--accent-2);
+}
+
+.main #management {
+    padding: 15px;
+    background-color: var(--surface);
+    border-left: 2px solid var(--accent-3);
+}

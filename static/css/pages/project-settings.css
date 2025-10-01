@@ -1,0 +1,37 @@
+.main {padding: 20px;}
+
+.main .settings-group {
+    background-color: var(--surface);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.main .form {align-items: end;}
+.main .form .form-elem {width: 100%;}
+.main .form .filled-btn {width: fit-content;}
+
+.main #team-info .form .input {width: 50%;}
+.main #danger-zone {background-color: #FF9393;}
+
+.main #danger-zone #switch-body {
+    width: 80px;
+    height: 40px;
+    border-radius: 50px;
+    padding: 5px;
+    background-color: var(--secondary);
+    cursor: pointer;
+}
+
+.main #danger-zone #switch-ball {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: var(--primary);
+}
+
+.main #danger-zone #switch-ball.private {
+    transform: translateX(40px);
+    background-color: #FF4C4C;
+}
+
+.main #danger-zone #delete-project {width: fit-content;}

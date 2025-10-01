@@ -1,0 +1,11 @@
+.popup-container {top: 0;}
+.popup-content {background-color: var(--popup);}
+
+.form .row {width: 100%;}
+
+.form .form-elem {
+    width: 100%;
+    text-align: left;
+}
+
+.form .icon-btn {width: fit-content;}

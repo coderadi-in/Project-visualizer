@@ -1,0 +1,22 @@
+.main .overview {width: max(50vw, 280px);}
+
+.main .img-row {
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.main .desk.img {
+    aspect-ratio: 1.5 / 1;
+    height: 464px;
+    width: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 5px var(--primary);
+}
+
+.main .phone.img {
+    aspect-ratio: 0.5 / 1;
+    height: 464px;
+    width: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 5px var(--primary);
+}

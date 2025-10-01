@@ -1,0 +1,56 @@
+#timeline {
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    border: 1px dashed var(--border);
+    left: 21px;
+}
+
+.icon-content{
+    background-color: var(--surface);
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.update-list {position: relative;}
+.update-list .update .mini {color: var(--sub-text);}
+
+.update-page {
+    background-color: var(--popup);
+    border: 1px solid var(--surface);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.roles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    padding: 20px;
+}
+
+.roles .role {
+    background-color: var(--popup);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.roles .role .icon-content {
+    width: fit-content;
+    padding: 20px;
+}
+
+@media (max-width: 1024px) {
+    .roles {grid-template-columns: repeat(2, 1fr);}
+}
+
+@media (max-width: 568px) {
+    .roles {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 325px) {
+    .roles {padding: 0;}
+}

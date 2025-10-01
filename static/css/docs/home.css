@@ -1,0 +1,80 @@
+.main {padding: 0;}
+
+.main .hero {
+    background-color: var(--surface);
+    padding: 20px 50px;
+}
+
+.main .hero .img {width: 50%;}
+
+.main .hero .filled-btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    width: fit-content;
+}
+
+.main .hero .outlined-btn {
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.main .topics {padding: 20px;}
+
+.main .topics .topic-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.main .topics .h2.title {text-align: center;}
+
+.main .topics .topic {
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.main .topics .topic:hover {transform: scale(0.99);}
+
+.main .topics .topic .icon {
+    padding: 10px;
+    border-radius: 50px;
+    width: 50px;
+    background-color: var(--secondary);
+}
+
+.main .newsletter {
+    background-color: var(--surface);
+    padding: 20px;
+    border-radius: 20px;
+    width: max(50vw, 300px);
+}
+
+.main .newsletter .h2 {text-align: center;}
+
+.main .newsletter .form {
+    border-radius: 5px;
+    border: 1px solid var(--border);
+}
+
+.main .newsletter .form .input {
+    border: none;
+    width: 100%;
+    border-radius: 5px 0 0 5px;
+}
+
+.main .newsletter .form .filled-btn {
+    border-radius: 0 5px 5px 0;
+}
+
+@media (max-width: 768px) {
+    .main .hero {flex-direction: column;}
+    .main .topics .topic-list {grid-template-columns: repeat(1, 1fr);}
+}
+
+@media (max-width: 568px) {
+    .main .hero {padding: 20px;}
+}

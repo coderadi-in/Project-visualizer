@@ -1,0 +1,35 @@
+.main {padding: 20px;}
+
+.grid-area {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.grid-area .card-info {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.grid-area .card-info .text,
+.grid-area .card-info .h1 {text-align: right;}
+
+.feed {
+    background-color: var(--surface);
+    border-top: 1px solid var(--secondary);
+    border-bottom: 1px solid var(--secondary);
+    padding: 10px;
+    position: relative;
+}
+
+.feed .text-content {width: 90%;}
+
+.feed .seen-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

@@ -1,0 +1,52 @@
+.main {padding: 50px;}
+.overview {width: max(50%, 300px);}
+
+.feature-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    padding: 20px;
+}
+
+.feature-list .feature {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--popup);
+}
+
+.feature-list .icon-content {
+    width: fit-content;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--border);
+}
+
+.steps .step {
+    border: 1px solid var(--sub-text);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.steps .step:hover {background-color: var(--popup);}
+
+.steps .step .icon-content {
+    background-color: var(--surface);
+    padding: 10px;
+    border-radius: 50px;
+}
+
+@media (max-width: 1024px) {
+    .feature-list {grid-template-columns: repeat(2, 1fr);}
+}
+
+@media (max-width: 768px) {
+    .main {padding: 20px;}
+}
+
+@media (max-width: 568px) {
+    .feature-list {grid-template-columns: repeat(1, 1fr);}
+}
+
+@media (max-width: 425px) {
+    .feature-list {padding: 10px;}
+}

@@ -1,0 +1,32 @@
+.main {padding: 20px;}
+
+.main .userinfo .profile-pic {width: 100px;}
+
+.main .userinfo .profile-pic .img {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.main .userinfo .info .infogroup#project-overview {
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+}
+
+.main .accountinfo .form .filled-btn {width: fit-content;}
+
+.main .profileinfo .head .outlined-btn {border-radius: 50px;}
+.main .profileinfo .areas .area {width: 100%;}
+
+@media (max-width: 568px) {
+    .main .profileinfo .areas {flex-direction: column;}
+}
+
+@media (max-width: 425px) {
+    .main .profileinfo .head {
+        flex-direction: column;
+        align-items: start;
+        gap: 10px;
+    }
+}
