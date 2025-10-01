@@ -1,4 +1,4 @@
-# Project Visualizer v0.9.0 Documentation
+# Project Visualizer v1.0.0
 
 ![App logo](docs/app-logo.png)
 
@@ -165,6 +165,10 @@ Access the current version at: **[https://visualizer.coderadi.in](https://visual
 
 ---
 
-*Project Visualizer v0.9.0 - Transforming how tech teams collaborate and succeed* 🚀
+*Project Visualizer v1.0.0. - Transforming how tech teams collaborate and succeed* 🚀
 
 **Get Started Today**: [https://visualizer.coderadi.in](https://visualizer.coderadi.in)
+
+---
+
+coderadi &bull; 2025 &bull; `project-visualizer`

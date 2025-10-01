@@ -2,8 +2,8 @@
 
 # ? Importing libraries
 from flask import Blueprint, render_template, redirect, url_for, flash, abort, request
-from datetime import date, datetime
 from extensions import *
+from datetime import date, datetime
 
 # ! Building project router
 project = Blueprint('project', __name__, url_prefix='/projects')
@@ -14,14 +14,13 @@ def mark_objective(data):
     obj = Objective.query.filter_by(id=data['obj_id']).first()
     project = Project.query.filter_by(id=data['route']).first()
     team = Team.query.filter_by(id=data['team_id']).first()
-    total_objectives = Objective.query.filter_by(project_id=project.id).all()
+    total_objectives = Objective.query.filter_by(project_id=project.id).count()
 
     if not team:
         obj.isdone = True
         db.session.commit()
-        socket.emit('mark-obj-callback', {
-            'status': 200,
-        })
+        update_project_status(project)
+        socket.emit('mark-obj-callback', {'status': 200})
         return
 
     member = Member.query.filter_by(
@@ -32,21 +31,20 @@ def mark_objective(data):
     obj.isdone = True
     obj.doneby = member.id
     db.session.commit()
+    update_project_status(project)
 
     done_objectives = Objective.query.filter_by(
         project_id=project.id,
         doneby=member.id
-    ).all()
+    ).count()
 
     member.contribution = round(
-        len(done_objectives) / len(total_objectives) * 100,
+        done_objectives / total_objectives * 100,
         1
     )
     db.session.commit()
 
-    socket.emit('mark-obj-callback', {
-        'status': 200,
-    })
+    socket.emit('mark-obj-callback', {'status': 200})
 
 # * socket route to delete objectives
 @socket.on('delete-obj')
@@ -54,40 +52,41 @@ def delete_objectives(data):
     obj = Objective.query.filter_by(id=data['obj_id']).first()
     db.session.delete(obj)
     db.session.commit()
+    update_project_status(obj.project_id)
 
-    socket.emit('del-obj-callback', {
-        'status': 200,
-    })
+    socket.emit('del-obj-callback', {'status': 200})
 
 # * socket route to update project visibility
 @socket.on('project-settings')
 def update_project_visibility(data):
-    try:
-        project = Project.query.filter_by(id=data['projectId']).first()
+    project = Project.query.filter_by(id=data['projectId']).first()
 
-        if not project:
-            socket.emit('project-settings-callback', {'status': 404})
+    if not project:
+        socket.emit('project-settings-callback', {'status': 404})
 
-        project.private = data['private']
-        db.session.commit()
-        socket.emit('project-settings-callback', {'status': 200})
-
-    except:
-        socket.emit('project-settings-callback', {'status': 500})
+    project.private = data['private']
+    db.session.commit()
+    socket.emit('project-settings-callback', {'status': 200})
 
 # | Context Processor
 @project.context_processor
 def inject_common_vars():
-    projects = Project.query.filter_by(created_by=current_user.id).all()
-    notifications = Notification.query.filter_by(recv=current_user.id).all()
+    projects = Project.query.filter_by(created_by=current_user.id)
     all_teams = Team.query.all()
     settings = UserSettings.query.filter_by(user_id=current_user.id).first()
-    active_projects = []
-    completed_projects = []
-    pending_projects = []
-    failed_projects = []
     teams = []
-    today = date.today()
+
+    active_projects = projects.filter_by(status='active').count()
+    completed_projects = projects.filter_by(status='completed').count()
+    pending_projects = projects.filter_by(status='pending').count()
+    failed_projects = projects.filter_by(status='failed').count()
+
+    notifications = Notification.query.filter(
+        or_(
+            Notification.recv == 0,
+            Notification.recv == current_user.id
+        )
+    ).all()
 
     if all_teams:
         for team in all_teams:
@@ -96,40 +95,17 @@ def inject_common_vars():
                     teams.append(team)
                     break
 
-    if len(projects) < 1:
-        return {
-            'active_projects': 0,
-            'completed_projects': 0,
-            'pending_projects': 0,
-            'failed_projects': 0,
-            'total_projects': 0,
-            'allteams': teams,
-            'notification_count': len(notifications),
-            'notifications': notifications,
-            'settings': settings,
-        }
-    
-
-    for project in projects:
-        if project.done:
-            completed_projects.append(project)
-        elif project.start_date > today:
-            pending_projects.append(project)
-        elif project.end_date < today and not project.done:
-            failed_projects.append(project)
-        elif project.start_date <= today <= project.end_date and not project.done:
-            active_projects.append(project)
-
     return {
-        'active_projects': len(active_projects),
-        'completed_projects': len(completed_projects),
-        'pending_projects': len(pending_projects),
-        'failed_projects': len(failed_projects),
-        'total_projects': len(projects),
+        'active_projects': active_projects,
+        'completed_projects': completed_projects,
+        'pending_projects': pending_projects,
+        'failed_projects': failed_projects,
+        'total_projects': projects.count(),
         'allteams': teams,
         'notification_count': len(notifications),
         'notifications': notifications,
         'settings': settings,
+        'CURRENT_VERSION': CURRENT_VERSION,
     }
 
 # & Project route
@@ -141,54 +117,44 @@ def show_project(id):
 
     if project.team_id:
         team = Team.query.filter_by(id=project.team_id).first()
-
-        if (not Member.query.filter_by(
+        member = Member.query.filter_by(
             mem_id=current_user.id,
             team_id=team.id
-        ).first()) and (project.private):
+        ).first() 
+
+        if (not member) and (project.private):
             flash("You can't see this project as it's private.", "error")
             return redirect(url_for('router.dashboard'))
-        
-        if (Member.query.filter_by(
-            mem_id=current_user.id,
-            team_id=team.id
-        ).first()):
-            access = True
 
-        else: access = False
-
-        viewer = Member.query.filter_by(
+        access = True if (member) else False
+        admin = Member.query.filter_by(
             admin=True,
             team_id=team.id
         ).first()
 
     else:
-        viewer = User.query.filter_by(id=project.created_by).first()
+        admin = User.query.filter_by(id=project.created_by).first()
         
-        if (not current_user.id == viewer.id) and (project.private):
+        if (not current_user.id == admin.id) and (project.private):
             flash("You can't see this project as it's private.", "error")
             return redirect(url_for('router.dashboard'))
 
         team = None
-        access = True if (current_user.id == viewer.id) else False
+        access = True if (current_user.id == admin.id) else False
         
-    try: viewerid = viewer.id
-    except: viewerid = 0
-    isadmin = True if current_user.id == viewer.id else False
+    adminid = admin.id if (admin != None) else 0
+    isadmin = True if current_user.id == admin.id else False
 
     objectives = Objective.query.filter_by(project_id=project.id).all()
-    completed_obj = len(
-        Objective.query.filter_by(
-            project_id=project.id,
-            isdone=True
-        ).all()
-    )
-    incomplete_obj = len(
-        Objective.query.filter_by(
-            project_id=project.id,
-            isdone=False
-        ).all()
-    )
+    completed_obj = Objective.query.filter_by(
+        project_id=project.id,
+        isdone=True
+    ).count()
+    
+    incomplete_obj = Objective.query.filter_by(
+        project_id=project.id,
+        isdone=False
+    ).count()
 
     return render_template('pages/project.html', data={
         'project': project,
@@ -198,8 +164,8 @@ def show_project(id):
             'completed': completed_obj if completed_obj > 0 else 0,
             'incomplete': incomplete_obj if incomplete_obj > 0 else 0
         },
-        'viewer': {
-            'id': viewerid,
+        'admin': {
+            'id': adminid,
             'is_admin': isadmin,
         },
         'access': access
@@ -207,6 +173,7 @@ def show_project(id):
 
 # & Project settings route
 @project.route('/<int:id>/settings/')
+@login_required
 def project_settings(id):
     project = Project.query.filter_by(id=id).first()
 
@@ -216,11 +183,10 @@ def project_settings(id):
     memberships = Member.query.filter_by(mem_id=current_user.id).all()
     selected_team = None
 
-    teams = [
-        Team.query.filter_by(id=membership.team_id).first() 
+    teams_ids = [
+        Team.query.filter_by(id=membership.team_id).first().id 
         for membership in memberships
     ]
-    teams_ids = [team.id for team in teams]
 
     if project.team_id:
         selected_team = Team.query.filter_by(id=project.team_id).first()
@@ -239,6 +205,7 @@ def project_settings(id):
 
 # & Update project settings route
 @project.route('/<int:id>/settings/update/<category>', methods=['POST'])
+@login_required
 def update_project_settings(id, category):
     project = Project.query.filter_by(id=id).first()
 
@@ -276,6 +243,7 @@ def add_new_project():
 
     db.session.add(new_project)
     db.session.commit()
+    update_project_status(new_project)
     flash("New project has been created.", "success")
     return redirect(url_for('project.show_project', id=new_project.id))
 
@@ -308,6 +276,7 @@ def delete_project():
 @login_required
 def new_objective(id):
     current_project = Project.query.filter_by(id=id).first()
+    current_project.status = 'active'
     obj = request.form.get('obj')
 
     new_obj = Objective(
@@ -317,6 +286,6 @@ def new_objective(id):
 
     db.session.add(new_obj)
     db.session.commit()
-
+    update_project_status(current_project)
     flash("New objective added successfully.", "success")
     return redirect(url_for('project.show_project', id=id))

@@ -27,5 +27,24 @@ def inject_common_vars():
 # & Home route
 @docs.route('/')
 def home():
-    flash("Docs will be availiable from version 1.0.0", "warning")
-    return redirect(url_for('router.dashboard'))
+    return render_template('docs/home.html')
+
+# & Projects route
+@docs.route('/projects')
+def projects():
+    return render_template('docs/projects.html')
+
+# & Teams route
+@docs.route('/teams')
+def teams():
+    return render_template('docs/teams.html')
+
+# & Profile route
+@docs.route('/profile')
+def profile():
+    return render_template('docs/profile.html')
+
+# & Updates route
+@docs.route('/updates')
+def updates():
+    return render_template('docs/updates.html')

@@ -1,15 +1,16 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/header.css') }}">
 
 <header class="header res-row h-sb gap-10">
     <div class="options row gap-10" id="left">
         <button class="btn" id="open-sidebar">
-            <img src="{{ url_for('static', filename='assets/icons/sidebar-'+settings.theme+'.png') }}" alt="Toggle sidebar" class="img">
+            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/sidebar.png') }}" alt="Toggle sidebar" class="icon">
+            <div class="tooltip"><span class="mini">Open sidebar</span></div>
         </button>
 
         <form action="/search/" method="get" class="form row gap-10">
             <input required minlength="3" type="search" name="query" placeholder="Search bar" class="input" id="search">
             <button type="submit" class="btn">
-                <img src="{{ url_for('static', filename='assets/icons/search-'+settings.theme+'.png') }}" alt="Search" class="img">
+                <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/search.png') }}" alt="Search" class="img">
             </button>
         </form>
     </div>
@@ -21,11 +22,12 @@
         <a href="/docs/" class="link">Docs</a>
 
         <button class="btn" id="notifications">
-            <img src="{{ url_for('static', filename='assets/icons/notify-'+settings.theme+'.png') }}" alt="Notifications" class="img"
+            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/notify.png') }}" alt="Notifications" class="img"
                 id="notifications-icon">
             {% if notification_count > 0 %}
                 <span class="badge" id="notification-count"></span>
             {% endif %}
+            <div class="tooltip"><span class="mini">Toggle notifications</span></div>
         </button>
 
         <a href="/profile/" class="link btn" id="profile">
@@ -34,4 +36,4 @@
     </div>
 </header>
 
-<script src="{{ url_for('static', filename='js/header.js') }}"></script>
+<script src="{{ url_for('static', filename='js/components/header.js') }}"></script>

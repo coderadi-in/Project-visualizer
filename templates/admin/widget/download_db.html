@@ -1,0 +1,17 @@
+<section class="popup-container" id="download-db-popup">
+    <section class="popup-content column gap-20">
+        <div class="head row gap-20">
+            <button class="btn back-btn">
+                <img src="{{ url_for('static', filename='assets/icons/common/back.png') }}" alt="Back" class="icon">
+            </button>
+            <h2 class="h2">Download db</h2>
+        </div>
+
+        <form action="{{ url_for('admin.download_db') }}" method="post" class="form column gap-20">
+            <input type="password" name="password" placeholder="Enter admin passkey" class="input">
+            <button type="submit" class="filled-btn">Download db</button>
+        </form>
+    </section>
+</section>
+
+<script src="{{ url_for('static', filename='js/admin/popup.js') }}"></script>

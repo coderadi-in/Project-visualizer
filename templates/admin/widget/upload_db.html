@@ -1,0 +1,18 @@
+<section class="popup-container" id="upload-db-popup">
+    <section class="popup-content column gap-20">
+        <div class="head row gap-20">
+            <button class="btn back-btn">
+                <img src="{{ url_for('static', filename='assets/icons/common/back.png') }}" alt="Back" class="icon">
+            </button>
+            <h2 class="h2">Upload db</h2>
+        </div>
+
+        <form action="{{ url_for('admin.upload_db') }}" method="post" class="form column gap-20" enctype="multipart/form-data">
+            <input type="password" name="password" placeholder="Enter admin passkey" class="input">
+            <input type="file" name="db_file" class="input" accept=".sqlite3">
+            <button type="submit" class="filled-btn">Upload db</button>
+        </form>
+    </section>
+</section>
+
+<script src="{{ url_for('static', filename='js/admin/popup.js') }}"></script>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Team docs &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/docs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/docs/teams.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    <header class="header row h-sb">
+        {% include 'components/app-title.html' %}
+
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('router.dashboard') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Dashboard</span>
+        </a>
+        {% else %}
+        <a href="{{ url_for('auth.signup') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Signup</span>
+        </a>
+        {% endif %}
+    </header>
+
+    <main class="main column gap-20">
+        <div class="overview column gap-10">
+            <h1 class="h1">Teams</h1>
+            <p class="para">Teams in <strong>Project visualizer</strong> make collaboration seamless by bringing members
+                together under a shared space. TEams help you assign roles, track contributions, and manage visibility
+                with ease.</p>
+        </div>
+
+        <div class="column gap-10" id="visualization">
+            <h2 class="h2">Creating & visualizing teams</h2>
+
+            <p class="para">
+                To create a team, simply provide a <strong>team name</strong> and <strong>description</strong>. After
+                creation, you can customizte your team by adding a <strong>team icon</strong> from the
+                <strong>settings</strong> button.
+            </p>
+
+            <img src="{{ url_for('static', filename='assets/docs/team-vis.png') }}" alt="Team visualization" class="img">
+            
+            <p class="para">Each team has a <strong>contribution chart</strong>, giving you a
+                quick overview of member activity and progress.</p>
+
+            <i>Note: Visualization will be further enhanced in upcoming updates for a smoother experience.</i>
+        </div>
+
+        <div class="column gap-10" id="visibility">
+            <h2 class="h2">Team visibility</h2> 
+            
+            <ul class="no-list">
+                <li><strong>Private</strong>: Only team members can view and access the team.</li>
+                <li><strong>Public</strong>: The team can be discoverd by others, allowing wider visibility and potential new member requests.</li>
+            </ul>
+            
+            <img src="{{ url_for('static', filename='assets/docs/team-viz.png') }} " alt="Team visibility" class="img">
+        </div>
+
+        <div class="column gap-10" id="management">
+            <h2 class="h2">Members & roles</h2>
+            <p class="para">You can join members directly via <strong>email</strong>. Users can also send <strong>join requests</strong> to a <strong>public</strong> team. All pending requests appear in the <strong>User management</strong> section, accessible only by team admins.</p>
+
+            <strong>Roles:</strong>
+            <ul class="no-list">
+                <li><strong>Admin</strong>: Full control over team settings, member approvals, and role management.</li>
+                <li><strong>Member</strong>: Standard access to collaborate on team projects.</li>
+            </ul>
+
+            <img src="{{ url_for('static', filename='assets/docs/team-mem.png') }}" alt="Team members" class="img">
+
+            <i>Future updats will introduce more granular roles for advanced control.</i>
+        </div>
+
+        <div class="outro row gap-20">
+            <a href="/docs/projects" class="link icon-btn">
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Next" class="icon back">
+                <span class="text">Projects</span>
+            </a>
+
+            <a href="/docs/profile" class="link icon-btn">
+                <span class="text">Profile</span>
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Next" class="icon">
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer column gap-50">
+        <div class="content row h-se">
+            <div class="nav-links flex gap-20">
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Navigate</h3>
+                    <a href="/dashboard/" class="link">Dashbaord</a>
+                    <a href="/profile/" class="link">Profile</a>
+                    <a href="/users/" class="link">Find users</a>
+                </div>
+
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Developer</h3>
+                    <a href="https://github.com/coderadi-in" class="link" target="_blank">GitHub</a>
+                    <a href="http://www.instagram.com/coderadi.in" target="_blank" class="link">Instagram</a>
+                    <a href="http://www.coderadi.in" target="_blank" class="link">Portfolio</a>
+                </div>
+            </div>
+
+            <div class="feedback-form column gap-10">
+                <h3 class="h3">Feedback & suggestions.</h3>
+
+                <form action="/app/feedback" method="post" class="form column gap-10">
+                    <input required type="email" name="email" placeholder="Your email" class="input">
+                    <textarea required name="feedback" placeholder="Your feedback, suggestions, new feature..."
+                        class="input"></textarea>
+                    <button type="submit" class="filled-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <p class="para">built by coderadi &bull; <a href="https://www.coderadi.in" class="link">www.coderadi.in</a></p>
+    </footer>
+</body>
+
+</html>

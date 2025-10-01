@@ -129,16 +129,22 @@ def remove_member(data):
 # | Context Processor
 @team.context_processor
 def inject_common_vars():
-    projects = Project.query.filter_by(created_by=current_user.id).all()
-    notifications = Notification.query.filter_by(recv=current_user.id).all()
+    projects = Project.query.filter_by(created_by=current_user.id)
     all_teams = Team.query.all()
     settings = UserSettings.query.filter_by(user_id=current_user.id).first()
-    active_projects = []
-    completed_projects = []
-    pending_projects = []
-    failed_projects = []
     teams = []
-    today = date.today()
+
+    active_projects = projects.filter_by(status='active').count()
+    completed_projects = projects.filter_by(status='completed').count()
+    pending_projects = projects.filter_by(status='pending').count()
+    failed_projects = projects.filter_by(status='failed').count()
+
+    notifications = Notification.query.filter(
+        or_(
+            Notification.recv == 0,
+            Notification.recv == current_user.id
+        )
+    ).all()
 
     if all_teams:
         for team in all_teams:
@@ -147,40 +153,17 @@ def inject_common_vars():
                     teams.append(team)
                     break
 
-    if len(projects) < 1:
-        return {
-            'active_projects': 0,
-            'completed_projects': 0,
-            'pending_projects': 0,
-            'failed_projects': 0,
-            'total_projects': 0,
-            'allteams': teams,
-            'notification_count': len(notifications),
-            'notifications': notifications,
-            'settings': settings,
-        }
-    
-
-    for project in projects:
-        if project.done:
-            completed_projects.append(project)
-        elif project.start_date > today:
-            pending_projects.append(project)
-        elif project.end_date < today and not project.done:
-            failed_projects.append(project)
-        elif project.start_date <= today <= project.end_date and not project.done:
-            active_projects.append(project)
-
     return {
-        'active_projects': len(active_projects),
-        'completed_projects': len(completed_projects),
-        'pending_projects': len(pending_projects),
-        'failed_projects': len(failed_projects),
-        'total_projects': len(projects),
+        'active_projects': active_projects,
+        'completed_projects': completed_projects,
+        'pending_projects': pending_projects,
+        'failed_projects': failed_projects,
+        'total_projects': projects.count(),
         'allteams': teams,
         'notification_count': len(notifications),
         'notifications': notifications,
         'settings': settings,
+        'CURRENT_VERSION': CURRENT_VERSION,
     }
 
 # & New team route
@@ -233,28 +216,24 @@ def index():
         ).all()
 
     else: all_teams = Team.query.all()
-    
-    teams = [{
-        'data': team,
-        'projects': {
-            'completed': 0,
-            'active': 0,
-            'pending': 0,
-            'failed': 0,
-        }
-    } for team in all_teams if (not team.private)]
-    today = date.today()
 
-    for team in teams:
-        for project in Project.query.filter_by(team_id=team['data'].id).all():
-            if project.done:
-                team['projects']['completed'] += 1
-            elif project.start_date > today:
-                team['projects']['pending'] += 1
-            elif project.end_date < today and not project.done:
-                team['projects']['failed'] += 1
-            elif project.start_date <= today <= project.end_date and not project.done:
-                team['projects']['active'] += 1
+    teams = []
+    for team in all_teams:
+        projects = Project.query.filter_by(team_id=team.id)
+        completed_projects = projects.filter_by(status='completed').count()
+        active_projects = projects.filter_by(status='active').count()
+        pending_projects = projects.filter_by(status='pending').count()
+        failed_projects = projects.filter_by(status='failed').count()
+
+        teams.append({
+            'data': team,
+            'projects': {
+                'completed': completed_projects,
+                'active': active_projects,
+                'pending': pending_projects,
+                'failed': failed_projects
+            }
+        })
 
     return render_template('pages/team.html', data={
         'teams': teams

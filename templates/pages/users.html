@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Users &bull; Project Visualizer</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/users.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/users.css') }}">
 </head>
 
 <body class="{{ settings.theme }} {{ settings.accent }}">
     {% include 'components/msg.html' %}
+    {% include 'components/notifications.html' %}
     {% include 'utils/project.html' %}
     {% include 'utils/team.html' %}
-    {% include 'utils/notifications.html' %}
 
     <section class="app-content">
         {% include 'components/sidebar.html' %}
@@ -30,14 +30,14 @@
 
                     <div class="options row gap-20">
                         <a href="/users/" class="link">
-                            <img src="{{ url_for('static', filename='assets/icons/refresh-'+settings.theme+'.png') }}" alt="Refresh" class="icon">
+                            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/refresh.png') }}" alt="Refresh" class="icon">
                         </a>
 
                         <form action="/users/" method="get" class="form row gap-10">
                             <input required type="search" name="userid" placeholder="Search for users..." class="input"
                                 id="search">
                             <button type="submit" class="btn">
-                                <img src="{{ url_for('static', filename='assets/icons/search-'+settings.theme+'.png') }}" alt="Search"
+                                <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/search.png') }}" alt="Search"
                                     class="img">
                             </button>
                         </form>
@@ -54,7 +54,7 @@
                         </div>
 
                         <a href="/profile/?userid={{ user.id }}" class="link btn">
-                            <img src="{{ url_for('static', filename='assets/icons/open-'+settings.theme+'.png') }}" alt="Open profile"
+                            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/open.png') }}" alt="Open profile"
                                 class="icon">
                         </a>
                     </div>
@@ -64,7 +64,7 @@
         </section>
     </section>
 
-    <script src="{{ url_for('static', filename='js/users.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pages/users.js') }}"></script>
 </body>
 
 </html>

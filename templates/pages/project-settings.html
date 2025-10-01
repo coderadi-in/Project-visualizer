@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{ data.project.title }} &bull; Project Visualizer</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/project-settings.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/project-settings.css') }}">
 </head>
 
 <body class="{{ settings.theme }} {{ settings.accent }}">
     {% include 'components/msg.html' %}
+    {% include 'components/notifications.html' %}
     {% include 'utils/project.html' %}
     {% include 'utils/objective.html' %}
     {% include 'utils/team.html' %}
-    {% include 'utils/notifications.html' %}
 
     <section class="app-content">
         {% include 'components/sidebar.html' %}
@@ -85,7 +85,7 @@
                         <span class="text">Project visibility</span>
 
                         <div class="row gap-10">
-                            <img src="{{ url_for('static', filename='assets/icons/public.png') }}" alt="Public"
+                            <img src="{{ url_for('static', filename='assets/icons/common/public.png') }}" alt="Public"
                                 class="icon">
 
                             <div class="switch" id="switch-body">
@@ -96,13 +96,13 @@
                                 {% endif %}
                             </div>
 
-                            <img src="{{ url_for('static', filename='assets/icons/private.png') }}" alt="Private"
+                            <img src="{{ url_for('static', filename='assets/icons/common/private.png') }}" alt="Private"
                                 class="icon">
                         </div>
                     </div>
 
                     <button class="icon-btn" id="delete-project">
-                        <img src="{{ url_for('static', filename='assets/icons/delete-'+settings.theme+'.png') }}"
+                        <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/delete.png') }}"
                             alt="Delete project" class="icon">
                         <span class="text">Delete project</span>
                     </button>
@@ -111,10 +111,8 @@
         </section>
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
-        crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/project-settings.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/pages/project-settings.js') }}"></script>
 </body>
 
 </html>

@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin/sidebar.css') }}">
+
+<aside class="sidebar column gap-20">
+    <div class="title column gap-10">
+        {% include 'components/app-title.html' %}
+        <hr class="divider">
+    </div>
+
+    <section class="navigation column gap-10">
+        <h3 class="h3">Navigation</h3>
+        <a href="{{ url_for('admin.panel') }}" class="link filled-btn">Panel</a>
+        <a href="{{ url_for('admin.database') }}" class="link filled-btn">Database</a>
+    </section>
+
+    <section class="updates column gap-10">
+        <h3 class="h3">Updates</h3>
+        <div class="filled-btn" id="notify">Notify</div>
+        <div class="filled-btn" id="newsletter">Newsletter</div>
+    </section>
+</aside>
+
+<script src="{{ url_for('static', filename='js/admin/sidebar.js') }}"></script>

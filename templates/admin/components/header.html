@@ -1,0 +1,19 @@
+<style>
+    .header {
+        padding: 20px;
+        box-shadow: 0 0 7px var(--secondary);
+    }
+</style>
+
+<header class="header row h-sb">
+    <h3 class="h3">Admin panel</h3>
+
+    <div class="options row gap-10">
+        <div class="icon-btn" id="renew-hosting">
+            <img src="{{ url_for('static', filename='assets/icons/dark/refresh.png') }}" alt="Renew" class="icon">
+            <span class="text">Renew hosting</span>
+        </div>
+    </div>
+</header>
+
+<script src="{{ url_for('static', filename='js/admin/header.js') }}"></script>

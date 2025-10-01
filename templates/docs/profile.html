@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile docs &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/docs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/docs/profile.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    <header class="header row h-sb">
+        {% include 'components/app-title.html' %}
+
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('router.dashboard') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Dashboard</span>
+        </a>
+        {% else %}
+        <a href="{{ url_for('auth.signup') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Signup</span>
+        </a>
+        {% endif %}
+    </header>
+
+    <main class="main column gap-50">
+        <div class="overview column gap-10">
+            <h1 class="h1">Profile</h1>
+
+            <p>A well-crafted profile in <strong>Project visualizer</strong> improves how the algorithm connects you with <strong>potential teams</strong>, <strong>projects</strong>, and <strong>collaborators</strong>.</p>
+        </div>
+
+        <div class="column gap-10" id="features">
+            <h2 class="h2">Key Features</h2>
+            <div class="feature-list h-se">
+                <div class="feature column gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/teams.png') }}" alt="Skills" class="icon">
+                    </div>
+
+                    <div class="text-content column gap-10">
+                        <h3 class="h3">Skills</h3>
+                        <p>Add semantic skills (e.g., python, react, aws) for better matching. <i>(Custom skills allowed, but not recommended for best results.)</i></p>
+                    </div>
+                </div>
+
+                <div class="feature column gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/projects.png') }}" alt="Hours" class="icon">
+                    </div>
+
+                    <div class="text-content column gap-10">
+                        <h3 class="h3">Working hours</h3>
+                        <p>Specify flexible availability (e.g., 09:45 AM - 11:12 PM).</p>
+                    </div>
+                </div>
+
+                <div class="feature column gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/open.png') }}" alt="Skill" class="icon">
+                    </div>
+
+                    <div class="text-content column gap-10">
+                        <h3 class="h3">Social links</h3>
+                        <p>Add up to 3 links (LinkedIn, GitHub, Twitter, or any custom URL).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column gap-20" id="start">
+            <h2 class="h2">Getting started</h2>
+            <p>To get started with Project visualizer, you'll need to create an easy to access profile. Follow the
+                steps below to set up your profile and start getting <strong>potential teams</strong> and <strong>users</strong>.</p>
+
+            <div class="steps column gap-10">
+                <div class="step row gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/users.png') }}" alt="Profile" class="icon">
+                    </div>
+                    <p>Personalize your account with an image or avatar.</p>
+                </div>
+                
+                <div class="step row gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/search.png') }}" alt="Profile" class="icon">
+                    </div>
+                    <p>Unique identifier visible across projects and teams.</p>
+                </div>
+                
+                <div class="step row gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/open.png') }}" alt="Profile" class="icon">
+                    </div>
+                    <p>Publicly visible so others can reach you directly.</p>
+                </div>
+                
+                <div class="step row gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/subscription.png') }}" alt="Profile" class="icon">
+                    </div>
+                    <p>Short description highlighting your expertise and goals.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="outro row gap-20">
+            <a href="/docs/teams" class="link icon-btn">
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Next" class="icon back">
+                <span class="text">Teams</span>
+            </a>
+
+            <a href="/docs/updates" class="link icon-btn">
+                <span class="text">Updates</span>
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Next" class="icon">
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer column gap-50">
+        <div class="content row h-se">
+            <div class="nav-links flex gap-20">
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Navigate</h3>
+                    <a href="/dashboard/" class="link">Dashbaord</a>
+                    <a href="/profile/" class="link">Profile</a>
+                    <a href="/users/" class="link">Find users</a>
+                </div>
+
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Developer</h3>
+                    <a href="https://github.com/coderadi-in" class="link" target="_blank">GitHub</a>
+                    <a href="http://www.instagram.com/coderadi.in" target="_blank" class="link">Instagram</a>
+                    <a href="http://www.coderadi.in" target="_blank" class="link">Portfolio</a>
+                </div>
+            </div>
+
+            <div class="feedback-form column gap-10">
+                <h3 class="h3">Feedback & suggestions.</h3>
+
+                <form action="/app/feedback" method="post" class="form column gap-10">
+                    <input required type="email" name="email" placeholder="Your email" class="input">
+                    <textarea required name="feedback" placeholder="Your feedback, suggestions, new feature..."
+                        class="input"></textarea>
+                    <button type="submit" class="filled-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <p class="para">built by coderadi &bull; <a href="https://www.coderadi.in" class="link">www.coderadi.in</a></p>
+    </footer>
+
+</body>
+
+</html>

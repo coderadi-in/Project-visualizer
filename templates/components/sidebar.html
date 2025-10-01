@@ -1,13 +1,14 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/sidebar.css') }}">
 
 <aside class="sidebar column h-sb">
     <section class="top column gap-20">
         <div class="title column gap-10">
             <div class="head row gap-10 h-sb">
                 {% include 'components/app-title.html' %}
-                <button class="btn">
-                    <img src="{{ url_for('static', filename='assets/icons/sidebar-'+settings.theme+'.png') }}" alt="Toggle sidebar"
+                <button class="btn" id="close-sidebar">
+                    <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/sidebar.png') }}" alt="Toggle sidebar"
                         class="icon" id="toggle-sidebar">
+                    <div class="tooltip"><span class="mini">Close sidebar</span></div>
                 </button>
             </div>
 
@@ -19,17 +20,17 @@
 
             <a href="/dashboard/" class="link filled-btn row h-sb">
                 <span class="text">Dashboard</span>
-                <img src="{{ url_for('static', filename='assets/icons/arrow.png') }}" alt="Open" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Open" class="icon">
             </a>
 
             <a href="/profile/" class="link filled-btn row h-sb">
                 <span class="text">Profile</span>
-                <img src="{{ url_for('static', filename='assets/icons/arrow.png') }}" alt="Open" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Open" class="icon">
             </a>    
 
             <a href="/teams/?role=member" class="link filled-btn row h-sb">
                 <span class="text">Teams</span>
-                <img src="{{ url_for('static', filename='assets/icons/arrow.png') }}" alt="Open" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Open" class="icon">
             </a>
         </div>
 
@@ -37,12 +38,12 @@
             <h3 class="h3">New</h3>
 
             <button class="icon-btn" id="new-team">
-                <img src="{{ url_for('static', filename='assets/icons/team.png') }}" alt="Add" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/common/team.png') }}" alt="Add" class="icon">
                 <span class="text">Team</span>
             </button>
 
             <button class="icon-btn" id="new-project">
-                <img src="{{ url_for('static', filename='assets/icons/project.png') }}" alt="Add" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/common/project.png') }}" alt="Add" class="icon">
                 <span class="text">Project</span>
             </button>
         </div>
@@ -65,12 +66,12 @@
             <h3 class="h3">Account</h3>
 
             <a href="/settings/" class="link icon-btn" aria-disabled="true">
-                <img src="{{ url_for('static', filename='assets/icons/settings.png') }}" alt="Settings" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/common/settings.png') }}" alt="Settings" class="icon">
                 <span class="text">Settings</span>
             </a>
 
             <a href="/auth/logout/" class="link icon-btn" id="logout">
-                <img src="{{ url_for('static', filename='assets/icons/logout.png') }}" alt="Logout" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/common/logout.png') }}" alt="Logout" class="icon">
                 <span class="text">Logout</span>
             </a>
         </div>
@@ -79,4 +80,4 @@
     </section>
 </aside>
 
-<script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+<script src="{{ url_for('static', filename='js/components/sidebar.js') }}"></script>

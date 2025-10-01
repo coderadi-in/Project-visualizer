@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Project docs &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/updates/1.0.0.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'updates/header.html' %}
+
+    <main class="main column gap-50">
+        <h1 class="h1">First stable update - v1.0.0</h1>
+
+        <section class="features column gap-40">
+            <div class="column gap-10">
+                <div class="heading row gap-10">
+                    <img src="{{ url_for('static', filename='assets/icons/common/feature.png') }}" alt="New features"
+                        class="icon">
+                    <h2 class="h2">New features</h2>
+                </div>
+                <hr class="divider">
+            </div>
+
+            <div class="feature-list">
+                <div class="feature column gap-10">
+                    <div class="head row gap-10">
+                        <div class="icon-content">
+                            <img src="{{ url_for('static', filename='assets/icons/dark/admin.png') }}" alt="Password"
+                                class="icon">
+                        </div>
+                        <h3 class="h3">Password rotation system</h3>
+                    </div>
+
+                    <p class="para">We've added a password rotation system in v1.0.0 which will update your password
+                        every three days and notify you your new password.</p>
+                </div>
+
+                <div class="feature column gap-10">
+                    <div class="head row gap-10">
+                        <div class="icon-content">
+                            <img src="{{ url_for('static', filename='assets/icons/dark/subscription.png') }}" alt="Docs"
+                                class="icon">
+                        </div>
+                        <h3 class="h3">Documentation</h3>
+                    </div>
+
+                    <p class="para">We've added documentation which will help you know about our app and work more
+                        efficiently.</p>
+                </div>
+
+                <div class="feature column gap-10">
+                    <div class="head row gap-10">
+                        <div class="icon-content">
+                            <img src="{{ url_for('static', filename='assets/icons/dark/users.png') }}" alt="Mangement"
+                                class="icon">
+                        </div>
+                        <h3 class="h3">Efficient management</h3>
+                    </div>
+
+                    <p class="para">We've added settings system in teams and projects which will help you manage your
+                        projects and teams.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bugs column gap-40">
+            <div class="column gap-10">
+                <div class="heading row gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/common/bug.png') }}" alt="Bugs"
+                        class="icon">
+                    </div>
+                    <h2 class="h2">Bugs fixed</h2>
+                </div>
+                <hr class="divider">
+            </div>
+
+            <div class="bug-list column gap-10">
+                <div class="bug row gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/done.png') }}" alt="Fix" class="icon">
+                    </div>
+                    <p class="para">We've fixed the timeline charts of projects which shows negative timing when project date is ahead or passed.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="improvements column gap-40">
+            <div class="column gap-10">
+                <div class="heading row gap-10">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/common/imp.png') }}" alt="Improvements"
+                        class="icon">
+                    </div>
+                    <h2 class="h2">Improvements made</h2>
+                </div>
+                <hr class="divider">
+            </div>
+
+            <div class="imp-list column gap-10">
+                <div class="imp row gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/add.png') }}" alt="Improvement" class="icon">
+                    </div>
+                    <p class="para">We've added a public/private concept which will make your team and projects hidded from others.</p>
+                </div>
+                
+                <div class="imp row gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/add.png') }}" alt="Improvement" class="icon">
+                    </div>
+                    <p class="para">We've added a settings system to projects and teams which will help you to manage your projects and teams.</p>
+                </div>
+            </div>
+        </section>     
+        
+        <section class="suggestion column gap-20 v-center">
+            <div class="head row gap-20">
+                <img src="{{ url_for('static', filename='assets/icons/common/idea.png') }}" alt="Idea" class="icon">
+                <h3 class="h3">Suggest us more featuers</h3>
+            </div>
+
+            <p class="para">Have an idea for a new feature? We'd love to hear from you!</p>
+            <a href="/docs/#feedback" class="link filled-btn">Make a suggestion</a>
+        </section>
+    </main>
+
+</body>
+
+</html>

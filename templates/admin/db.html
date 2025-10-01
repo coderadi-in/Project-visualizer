@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Database &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/db.css') }}">
+</head>
+
+<body class="{{ theme }} {{ accent }}">
+    {% include 'admin/widget/notify.html' %}
+    {% include 'admin/widget/newsletter.html' %}
+    {% include 'admin/widget/download_db.html' %}
+    {% include 'admin/widget/upload_db.html' %}
+    {% include 'components/msg.html' %}
+
+    <section class="app-content">
+        {% include 'admin/components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'admin/components/header.html' %}
+
+            <main class="main column gap-20">
+                <h2 class="h2">Database &bull; VisualizerIO</h2>
+
+                <div class="overview column gap-10" id="overview">
+                    <div class="card-info row h-sb">
+                        <div class="left column gap-20">
+                            <span>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/database.png') }}"
+                                    alt="Database" class="icon">
+                            </span>
+
+                            <h1 class="h1">{{ data.db_count }}</h1>
+
+                            <div class="column gap-10">
+                                <span class="text">Total tables</span>
+                                <a href="#db-tables" class="link flex gap-10">
+                                    <span class="text">View all</span>
+                                    <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}"
+                                        alt="View" class="icon">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="right column gap-10">
+                            <div class="card-btn row h-sb gap-10" id="upload-db">
+                                <span class="text">Upload sqlite</span>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/upload.png') }}"
+                                    alt="Upload" class="icon">
+                            </div>
+
+                            <div class="card-btn row h-sb gap-10" id="download-db">
+                                <span class="text">Download sqlite</span>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/download.png') }}"
+                                alt="Download" class="icon">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-info row h-sb">
+                        <span class="text">Total size</span>
+                        <div class="flex" id="db-size">
+                            <h1 class="h1">{{ data.db_size }}</h1>
+                            <span class="text">MB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tables column gap-20">
+                    <h1 class="h1">All tables</h1>
+
+                    <div class="db-list" id="db-tables">
+                        {% for table_name, db_table in data.db_tables.items() %}
+                        <div class="db-table">
+                            <h2 class="h2">{{ db_table.data.name }}</h2>
+                            <hr class="divider">
+
+                            <div class="db-columns column gap-10">
+                                {% for db_col in db_table.columns %}
+                                <div class="db_column {{ db_col.class }} row gap-50">
+                                    <span class="text">{{ db_col.name }}</span>
+                                    <span class="text">{{ db_col.type }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </main>
+        </section>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/admin/db.js') }}"></script>
+</body>
+
+</html>

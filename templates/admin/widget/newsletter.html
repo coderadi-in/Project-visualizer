@@ -1,0 +1,22 @@
+<section class="popup-container" id="newsletter-popup">
+    <section class="popup-content column gap-20">
+        <div class="head row gap-20">
+            <button class="btn back-btn">
+                <img src="{{ url_for('static', filename='assets/icons/common/back.png') }}" alt="Back" class="icon">
+            </button>
+
+            <h2 class="h2">Newsletter</h2>
+        </div>
+
+        <form action="{{ url_for('admin.newsletter') }}" method="post" class="form column gap-20">
+            <div class="form-content column gap-10">
+                <input required type="text" name="title" placeholder="Newsletter title" class="input">
+                <textarea required name="content" placeholder="Newsletter content" class="input"></textarea>
+            </div>
+
+            <button type="submit" class="filled-btn">Publish newsletter</button>
+        </form>
+    </section>
+</section>
+
+<script src="{{ url_for('static', filename='js/admin/popup.js') }}"></script>

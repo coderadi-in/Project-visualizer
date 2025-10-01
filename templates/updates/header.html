@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/updates/header.css') }}">
+
+<header class="header row h-sb">
+    <div class="left row gap-20">
+        <div class="menu-bar">
+            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/sidebar.png') }}"
+                alt="Open sidebar" class="icon">
+        </div>
+        {% include 'components/app-title.html' %}
+    </div>
+
+    <ul class="list row gap-10">
+        <li><a href="/dashboard/" class="link">Dashboard</a></li>
+        <li><a href="/docs/" class="link">Documentation</a></li>
+        <li><a href="/users/" class="link">Find people</a></li>
+    </ul>
+
+    {% if current_user.is_authenticated %}
+    <a href="/dashboard/" class="link filled-btn cta">Dashboard</a>
+    {% else %}
+    <a href="/auth/signup" class="link filled-btn cta">Signup</a>
+    {% endif %}
+</header>
+
+<nav class="nav column h-sb">
+    <div class="left row gap-20">
+        <div class="menu-bar">
+            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/sidebar.png') }}"
+                alt="Open sidebar" class="icon">
+        </div>
+        {% include 'components/app-title.html' %}
+    </div>
+
+    <ul class="list column gap-10">
+        <li><a href="/dashboard/" class="link">Dashboard</a></li>
+        <li><a href="/docs/" class="link">Documentation</a></li>
+        <li><a href="/users/" class="link">Find people</a></li>
+    </ul>
+
+    {% if current_user.is_authenticated %}
+    <a href="/dashboard/" class="link filled-btn cta">Dashboard</a>
+    {% else %}
+    <a href="/auth/signup" class="link filled-btn cta">Signup</a>
+    {% endif %}
+</nav>
+
+<script src="{{ url_for('static', filename='js/updates/header.js') }}"></script>

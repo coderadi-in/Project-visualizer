@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project docs &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/docs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/docs/project.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    <header class="header row h-sb">
+        {% include 'components/app-title.html' %}
+
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('router.dashboard') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Dashboard</span>
+        </a>
+        {% else %}
+        <a href="{{ url_for('auth.signup') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Signup</span>
+        </a>
+        {% endif %}
+    </header>
+
+    <main class="main column gap-20">
+        <div class="overview column gap-10">
+            <h1 class="h1">Projects</h1>
+            <p class="para">Projects are the core of <strong>Project Visualizer</strong>, helping you plan, track, and manage progress efficiently. Each project comes with built-in visualization, collaboration options, and privacy controls.</p>
+        </div>
+
+        <h2 class="h2">Creating & Visualizing Projects.</h2>
+        <p class="para">To create a new project, provide details such as <strong>title</strong>, <strong>description</strong>, and <strong>deadline</strong></p>
+
+        <div class="img-row flex gap-20">
+            <img src="{{ url_for('static', filename='assets/docs/project-desk.png') }}" alt="New project" class="desk img">
+            <img src="{{ url_for('static', filename='assets/docs/project-phone.jpeg') }}" alt="New project" class="phone img">
+        </div>
+
+        <p class="para">Once created, your project dashboard will automatically generate <strong>real-time charts</strong> and <strong>progress indicators</strong>.</p>
+
+        <div class="img-row flex gap-20">
+            <img src="{{ url_for('static', filename='assets/docs/graph-desk.png') }}" alt="New project" class="desk img">
+            <img src="{{ url_for('static', filename='assets/docs/graph-phone.jpeg') }}" alt="New project" class="phone img">
+        </div>
+
+        <p class="para">You can personalize the experience by changing <strong>graph colors</strong> anytime via the <a href="/settings/" class="link"><strong>Settings</strong></a> button in the sidebar.</p>
+
+        <div class="img-row flex gap-20">
+            <img src="{{ url_for('static', filename='assets/docs/colors-desk.png') }}" alt="New project" class="desk img">
+            <img src="{{ url_for('static', filename='assets/docs/colors-phone.jpeg') }}" alt="New project" class="phone img">
+        </div>
+
+        <p class="para">Projects can be edited later using the <strong>Settings</strong> button on the dashboard, except for the <strong>start date</strong> and strong>deadline</strong> which are fixed after creation.</p>
+
+        <div class="img-row flex gap-20">
+            <img src="{{ url_for('static', filename='assets/docs/proj-settings-desk.png') }}" alt="New project" class="desk img">
+            <img src="{{ url_for('static', filename='assets/docs/proj-settings-phone.jpeg') }}" alt="New project" class="phone img">
+        </div>
+
+        <div class="outro row gap-20">
+            <a href="/docs/teams" class="link icon-btn">
+                <span class="text">Teams</span>
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Next" class="icon">
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer column gap-50">
+        <div class="content row h-se">
+            <div class="nav-links flex gap-20">
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Navigate</h3>
+                    <a href="/dashboard/" class="link">Dashbaord</a>
+                    <a href="/profile/" class="link">Profile</a>
+                    <a href="/users/" class="link">Find users</a>
+                </div>
+
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Developer</h3>
+                    <a href="https://github.com/coderadi-in" class="link" target="_blank">GitHub</a>
+                    <a href="http://www.instagram.com/coderadi.in" target="_blank" class="link">Instagram</a>
+                    <a href="http://www.coderadi.in" target="_blank" class="link">Portfolio</a>
+                </div>
+            </div>
+
+            <div class="feedback-form column gap-10">
+                <h3 class="h3">Feedback & suggestions.</h3>
+
+                <form action="/app/feedback" method="post" class="form column gap-10">
+                    <input required type="email" name="email" placeholder="Your email" class="input">
+                    <textarea required name="feedback" placeholder="Your feedback, suggestions, new feature..."
+                        class="input"></textarea>
+                    <button type="submit" class="filled-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <p class="para">built by coderadi &bull; <a href="https://www.coderadi.in" class="link">www.coderadi.in</a></p>
+    </footer>
+</body>
+</html>

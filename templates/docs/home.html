@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Documentation &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/docs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/docs/home.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    
+    <header class="header row h-sb">
+        {% include 'components/app-title.html' %}
+
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('router.dashboard') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Dashboard</span>
+        </a>
+        {% else %}
+        <a href="{{ url_for('auth.signup') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Signup</span>
+        </a>
+        {% endif %}
+    </header>
+
+    <main class="main column gap-20">
+        <div class="hero row gap-50">
+            <img src="{{ url_for('static', filename='assets/docs/docs-home.png') }}" alt="Overview image" class="img">
+
+            <div class="text-content column gap-50">
+                <div class="head column gap-10">
+                    <h1 class="h1">Project visualizer [VisualizerIO]</h1>
+                    <h3 class="h3">documentation page.</h3>
+                </div>
+
+                <p class="para">This page will help you know about how to use Project Visualizer to increase your
+                    workflow and visualize your progress.</p>
+
+                <div class="options column gap-10">
+                    <a href="{{ url_for('docs.projects') }}" class="link filled-btn">Get started</a>
+
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('router.dashboard') }}" class="link outlined-btn">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back"
+                            class="icon">
+                        <span class="text">Dashboard</span>
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('auth.signup') }}" class="link outlined-btn">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back"
+                            class="icon">
+                        <span class="text">Signup</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="topics column gap-20">
+            <h2 class="h2 title">Topics</h2>
+
+            <div class="topic-list gap-20">
+                <a href="/docs/projects" class="topic link">
+                    <img src="{{ url_for('static', filename='assets/docs/project.png') }}" alt="Project" class="icon">
+                    <h1 class="h2">Projects</h1>
+                    <p class="para">Creating and visualizing projects, setting project visibility and type to solo/team.
+                    </p>
+                </a>
+
+                <a href="/docs/teams" class="topic link">
+                    <img src="{{ url_for('static', filename='assets/docs/team.png') }}" alt="Team" class="icon">
+                    <h1 class="h2">Team</h1>
+                    <p class="para">Creating and organizing teams, managing members, and setting team visibility.</p>
+                </a>
+
+                <a href="/docs/profile" class="topic link">
+                    <img src="{{ url_for('static', filename='assets/docs/profile.png') }}" alt="Profile" class="icon">
+                    <h1 class="h2">Profile</h1>
+                    <p class="para">Making profile efficient for algorithm to display to others.</p>
+                </a>
+
+                <a href="/docs/updates" class="topic link">
+                    <img src="{{ url_for('static', filename='assets/docs/updates.png') }}" alt="Updates" class="icon">
+                    <h1 class="h2">Updates</h1>
+                    <p class="para">Newsletter subscription, feedback & suggestions, and requesting for new features.
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="newsletter-container flex v-center h-center">
+            <div class="newsletter column gap-20">
+                <h2 class="h2">Subscribe to newsletter.</h2>
+
+                <form action="{{ url_for('app.subscribe') }}" method="post" class="form flex">
+                    <input type="email" name="email" placeholder="Your email" class="input">
+                    <button type="submit" class="filled-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer column gap-50">
+        <div class="content row h-se">
+            <div class="nav-links flex gap-20">
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Navigate</h3>
+                    <a href="/dashboard/" class="link">Dashbaord</a>
+                    <a href="/profile/" class="link">Profile</a>
+                    <a href="/users/" class="link">Find users</a>
+                </div>
+
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Developer</h3>
+                    <a href="https://github.com/coderadi-in" class="link" target="_blank">GitHub</a>
+                    <a href="http://www.instagram.com/coderadi.in" target="_blank" class="link">Instagram</a>
+                    <a href="http://www.coderadi.in" target="_blank" class="link">Portfolio</a>
+                </div>
+            </div>
+
+            <div class="feedback-form column gap-10" id="feedback">
+                <h3 class="h3">Feedback & suggestions.</h3>
+
+                <form action="/app/feedback" method="post" class="form column gap-10">
+                    <input required type="email" name="email" placeholder="Your email" class="input">
+                    <textarea required name="feedback" placeholder="Your feedback, suggestions, new feature..."
+                        class="input"></textarea>
+                    <button type="submit" class="filled-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <p class="para">built by coderadi &bull; <a href="https://www.coderadi.in" class="link">www.coderadi.in</a></p>
+    </footer>
+</body>
+
+</html>

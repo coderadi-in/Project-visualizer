@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/msg.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/components/msg.css') }}">
 
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
-<ul class="notifications column gap-10">
+<ul class="alerts column gap-10">
     {% for category, message in messages %}
     <li class="flash {{ category }}">{{ message }}</li>
     {% endfor %}
@@ -10,4 +10,4 @@
 {% endif %}
 {% endwith %}
 
-<script src="{{ url_for('static', filename='js/msg.js') }}"></script>
+<script src="{{ url_for('static', filename='js/components/msg.js') }}"></script>

@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Dashboard &bull; Project Visualizer</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dash.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/dash.css') }}">
 </head>
 <body class="{{ settings.theme }} {{ settings.accent }}">
     {% include 'components/msg.html' %}
+    {% include 'components/notifications.html' %}
     {% include 'utils/project.html' %}
     {% include 'utils/team.html' %}
-    {% include 'utils/notifications.html' %}
 
     <section class="app-content">
         {% include 'components/sidebar.html' %}
@@ -30,7 +30,7 @@
                         <h3 class="h3">Projects overview</h3>
 
                         <button class="icon-btn" id="new-project">
-                            <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}" alt="New project" class="icon">
+                            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/add.png') }}" alt="New project" class="icon">
                             <span class="text">New project</span>
                         </button>
                     </div>
@@ -51,7 +51,7 @@
                                 <h2 class="h2">{{ project.title }}</h2>
 
                                 <a href="/projects/{{ project.id }}" class="link btn">
-                                    <img src="{{ url_for('static', filename='assets/icons/open-dark.png') }}" alt="Open" class="icon">
+                                    <img src="{{ url_for('static', filename='assets/icons/dark/open.png') }}" alt="Open" class="icon">
                                 </a>
                             </div>
 
@@ -59,13 +59,13 @@
                                 <p class="para">{{ project.desc }}</p>
 
                                 <div class="tags row gap-10">
-                                    {% if project.done %}
+                                    {% if project.status == 'completed' %}
                                         <span class="tag success">Completed</span>
-                                    {% elif project.start_date > data.today %}
+                                    {% elif project.status == 'pending' %}
                                         <span class="tag secondary">Pending</span>
-                                    {% elif project.start_date <= data.today <= project.end_date and not project.isdone %}
+                                    {% elif project.status == 'active' %}
                                         <span class="tag warning">Active</span>
-                                    {% elif project.end_date < today and not project.isdone %}
+                                    {% elif project.status == 'failed' %}
                                         <span class="tag danger">Failed</span>
                                     {% endif %}
                                     {% if project.team_id %}
@@ -80,6 +80,6 @@
         </section>
     </section>
 
-    <script src="{{ url_for('static', filename='js/dash.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pages/dash.js') }}"></script>
 </body>
 </html>

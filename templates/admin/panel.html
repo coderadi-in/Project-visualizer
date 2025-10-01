@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin panel &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/panel.css') }}">
+</head>
+
+<body class="{{ theme }} {{ accent }}">
+    {% include 'admin/widget/notify.html' %}
+    {% include 'admin/widget/newsletter.html' %}
+    {% include 'components/msg.html' %}
+
+    <section class="app-content">
+        {% include 'admin/components/sidebar.html' %}
+
+        <section class="app-body">
+            {% include 'admin/components/header.html' %}
+
+            <main class="main column gap-20">
+                <section class="overview column gap-10">
+                    <h1 class="h1">Overview</h1>
+
+                    <div class="grid-area">
+                        <div class="card-info" id="total-users">
+                            <div class="head row h-sb">
+                                <h3 class="h3">Total users</h3>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/users.png') }}"
+                                    alt="Users" class="icon">
+                            </div>
+                            <h1 class="h1">{{ data.total_users }}</h1>
+                        </div>
+
+                        <div class="card-info" id="total-projects">
+                            <div class="head row h-sb">
+                                <h3 class="h3">Total projects</h3>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/projects.png') }}"
+                                    alt="Projects" class="icon">
+                            </div>
+                            <h1 class="h1">{{ data.total_projects }}</h1>
+                        </div>
+
+                        <div class="card-info" id="total-teams">
+                            <div class="head row h-sb">
+                                <h3 class="h3">Total teams</h3>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/teams.png') }}"
+                                    alt="Teams" class="icon">
+                            </div>
+                            <h1 class="h1">{{ data.total_teams }}</h1>
+                        </div>
+
+                        <div class="card-info" id="total-subscriptions">
+                            <div class="head row h-sb">
+                                <h3 class="h3">Total subscriptions</h3>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/subscription.png') }}"
+                                    alt="Projects" class="icon">
+                            </div>
+                            <h1 class="h1">{{ data.total_subscriptions }}</h1>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="accounting column gap-10" id="accounting">
+                    <h1 class="h1">Accounting</h1>
+
+                    <div class="grid-area">
+                        <div class="card-info" id="income">
+                            <div class="head row h-sb">
+                                <h3 class="h3">Membership</h3>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/membership.png') }}"
+                                    alt="Membership" class="icon">
+                            </div>
+                            <span class="text">{{ data.membership_pass }}</span>
+                            <h1 class="h1">₹ {{ data.membership_income }}</h1>
+                        </div>
+
+                        <div class="card-info" id="hosting">
+                            <div class="head row h-sb">
+                                <h3 class="h3">Hosting</h3>
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/hosting.png') }}"
+                                    alt="Hosting" class="icon">
+                            </div>
+                            <span class="text">{{ data.hosting_left }} day(s) left.</span>
+                            <h1 class="h1">₹{{ data.hosting_charge }}</h1>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="feeds column gap-10" id="feeds">
+                    <h1 class="h1">All feeds</h1>
+
+                    <div class="feed-list column gap-10">
+                        {% if data.feeds %}
+                        {% for feed in data.feeds %}
+                        <div class="feed column gap-10" id="{{ feed.id }}">
+                            <div class="text-content column gap-10">
+                                <span class="text">{{ feed.email }}</span>
+                                <p class="para">{{ feed.feed }}</p>
+                            </div>
+
+                            <button class="btn seen-btn" data-feed-id="{{ feed.id }}">
+                                <img src="{{ url_for('static', filename='assets/icons/'+theme+'/mark-read.png') }}"
+                                    alt="Mark as read" class="icon">
+                            </button>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <span class="text">No feeds.</span>
+                        {% endif %}
+                    </div>
+                </section>
+            </main>
+        </section>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/admin/panel.js') }}"></script>
+</body>
+
+</html>

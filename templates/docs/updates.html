@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Updates docs &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/docs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/docs/updates.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    <header class="header row h-sb">
+        {% include 'components/app-title.html' %}
+
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('router.dashboard') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Dashboard</span>
+        </a>
+        {% else %}
+        <a href="{{ url_for('auth.signup') }}" class="link icon-btn">
+            <img src="{{ url_for('static', filename='assets/icons/dark/back.png') }}" alt="Back" class="icon">
+            <span class="text">Signup</span>
+        </a>
+        {% endif %}
+    </header>
+
+    <main class="main column gap-50">
+        <div class="column gap-10" id="overview">
+            <h1 class="h1">What's New</h1>
+            <p>Discover the latest features, improvements, and updates to our platform.</p>
+        </div>
+
+        <div class="column gap-20" id="updates">
+            <h2 class="h2">Upcoming Updates</h2>
+
+            <div class="update-list column gap-50">
+                <div id="timeline"></div>
+                <div class="update row gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/database.png') }}" alt="Update"
+                            class="icon">
+                    </div>
+
+                    <div class="text-content column gap-5">
+                        <p class="text">First stable update</p>
+                        <p class="mini">Expected Release: October 1, 2025</p>
+                    </div>
+                </div>
+
+                <div class="update row gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/dark/hosting.png') }}" alt="Update"
+                            class="icon">
+                    </div>
+
+                    <div class="text-content column gap-5">
+                        <p class="text">Projects update</p>
+                        <p class="mini">Coming soon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column gap-20">
+            <h2 class="h2">Announcements</h2>
+
+            <a href="/app/announcements/" class="link update-page row gap-20">
+                <div class="icon-content">
+                    <img src="{{ url_for('static', filename='assets/icons/common/announcement.png') }}"
+                        alt="Announcements" class="icon">
+                </div>
+
+                <div class="text-content column gap-5">
+                    <h3 class="h3">Announcements page</h3>
+                    <p class="para">All updates (released and upcoming) are listed on the Announcements Page:
+                        /app/announcements.</p>
+                </div>
+            </a>
+
+            <p class="para">This page serves as the single source for tracking changes, patches, and roadmap previews.
+            </p>
+        </div>
+
+        <div class="column gap-20" id="feedback">
+            <h2 class="h2">Feedback &amp; Suggestions</h2>
+
+            <p>We value your feedback. If you have any ideas for new features or improvements, please use the options below.</p>
+
+            <div class="roles">
+                <div class="role column gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/common/feed.png') }}" alt="Feedback" class="icon">
+                    </div>
+
+                    <div class="text-content column gap-10">
+                        <h3 class="h3">Submit feedback</h3>
+                        <p class="para">What was your working experience on our app. Did you find our app helpful?</p>
+                    </div>
+                </div>
+                
+                <div class="role column gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/common/bug.png') }}" alt="Bug" class="icon">
+                    </div>
+
+                    <div class="text-content column gap-10">
+                        <h3 class="h3">Bug report</h3>
+                        <p class="para">Report all the bugs so that we get about them and fix it.</p>
+                    </div>
+                </div>
+                
+                <div class="role column gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/common/feature.png') }}" alt="Feature" class="icon">
+                    </div>
+
+                    <div class="text-content column gap-10">
+                        <h3 class="h3">New feature</h3>
+                        <p class="para">Got a cool new feature for our app? Or have any problem that might be solve with a new functionality? Let us know.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="outro row gap-20">
+            <a href="/docs/profile" class="link icon-btn">
+                <img src="{{ url_for('static', filename='assets/icons/common/arrow.png') }}" alt="Next" class="icon back">
+                <span class="text">Profile</span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer column gap-50">
+        <div class="content row h-se">
+            <div class="nav-links flex gap-20">
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Navigate</h3>
+                    <a href="/dashboard/" class="link">Dashbaord</a>
+                    <a href="/profile/" class="link">Profile</a>
+                    <a href="/users/" class="link">Find users</a>
+                </div>
+
+                <div class="nav-link column gap-10">
+                    <h3 class="h3">Developer</h3>
+                    <a href="https://github.com/coderadi-in" class="link" target="_blank">GitHub</a>
+                    <a href="http://www.instagram.com/coderadi.in" target="_blank" class="link">Instagram</a>
+                    <a href="http://www.coderadi.in" target="_blank" class="link">Portfolio</a>
+                </div>
+            </div>
+
+            <div class="feedback-form column gap-10">
+                <h3 class="h3">Feedback & suggestions.</h3>
+
+                <form action="/app/feedback" method="post" class="form column gap-10">
+                    <input required type="email" name="email" placeholder="Your email" class="input">
+                    <textarea required name="feedback" placeholder="Your feedback, suggestions, new feature..."
+                        class="input"></textarea>
+                    <button type="submit" class="filled-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <p class="para">built by coderadi &bull; <a href="https://www.coderadi.in" class="link">www.coderadi.in</a></p>
+    </footer>
+
+</body>
+
+</html>

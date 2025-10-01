@@ -8,13 +8,6 @@ from extensions import *
 # ! Building auth router
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
-# | Context process
-@auth.context_processor
-def inject_common_vars():
-    return {
-        'CURRENT_VERSION': CURRENT_VERSION
-    }
-
 # & Signup route
 @auth.route('/signup/', methods=['GET', 'POST'])
 def signup():
@@ -121,7 +114,7 @@ def google_authorize():
         flash('Logged in successfully with Google.', 'success')
         return redirect(url_for('router.dashboard'))
         
-    except:
+    except Exception as e:
         flash('Failed to log in with Google. Please try again.', 'error')
         return redirect(url_for('auth.signup'))
     

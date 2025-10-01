@@ -1,10 +1,10 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/utils/popup.css') }}">
 
 <section class="popup-container" id="objective-popup">
     <section class="popup-content column gap-20">
         <div class="head row gap-10">
             <button class="btn" id="back">
-                <img src="{{ url_for('static', filename='assets/icons/back.png') }}" alt="Back" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/back.png') }}" alt="Back" class="icon">
             </button>
 
             <h2 class="h2">New objective</h2>
@@ -14,7 +14,7 @@
             <input autofocus autocomplete="false" required type="text" name="obj" placeholder="Your objective" class="input">
             
             <button type="submit" class="icon-btn">
-                <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}" alt="Add" class="icon">
+                <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/add.png') }}" alt="Add" class="icon">
                 <span class="text">Add objective</span>
             </button>
         </form>

@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Teams &bull; Project Visualizer</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/team.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/team.css') }}">
 </head>
 
 <body class="{{ settings.theme }} {{ settings.accent }}">
     {% include 'components/msg.html' %}
+    {% include 'components/notifications.html' %}
     {% include 'utils/project.html' %}
     {% include 'utils/team.html' %}
-    {% include 'utils/notifications.html' %}
 
     <section class="app-content">
         {% include 'components/sidebar.html' %}
@@ -33,7 +33,7 @@
                             <input type="search" name="title" placeholder="Serach by title" class="input">
 
                             <button type="submit" class="btn">
-                                <img src="{{ url_for('static', filename='assets/icons/search-'+settings.theme+'.png') }}"
+                                <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/search.png') }}"
                                     alt="Serach" class="icon">
                             </button>
                         </form>
@@ -41,25 +41,25 @@
 
                     <div class="options row gap-10">
                         <a href="/teams/?role=member" class="link icon-btn">
-                            <img src="{{ url_for('static', filename='assets/icons/member-'+settings.theme+'.png') }}"
+                            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/member.png') }}"
                                 alt="Member" class="icon">
                             <span class="text">Member</span>
                         </a>
 
                         <a href="/teams/?role=moderator" class="link icon-btn">
-                            <img src="{{ url_for('static', filename='assets/icons/admin-'+settings.theme+'.png') }}"
+                            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/admin.png') }}"
                                 alt="Moderator" class="icon">
                             <span class="text">Moderator</span>
                         </a>
 
                         <a href="/teams/?role=all" class="link icon-btn">
-                            <img src="{{ url_for('static', filename='assets/icons/allrole-'+settings.theme+'.png') }}"
+                            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/allrole.png') }}"
                                 alt="All" class="icon">
                             <span class="text">All</span>
                         </a>
 
                         <button class="icon-btn" id="new-team">
-                            <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}" alt="Add"
+                            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/add.png') }}" alt="Add"
                                 class="icon">
                             <span class="text">New team</span>
                         </button>
@@ -76,7 +76,7 @@
                                 <div class="tag">{{ team.data.members }} member(s)</div>
 
                                 <a href="/teams/{{ team.data.id }}" class="link btn">
-                                    <img src="{{ url_for('static', filename='assets/icons/open-dark.png') }}"
+                                    <img src="{{ url_for('static', filename='assets/icons/dark/open.png') }}"
                                         alt="Open." class="icon">
                                 </a>
                             </div>
@@ -95,7 +95,7 @@
         </section>
     </section>
 
-    <script src="{{ url_for('static', filename='js/team.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pages/team.js') }}"></script>
 </body>
 
 </html>

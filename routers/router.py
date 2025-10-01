@@ -2,9 +2,9 @@
 
 # ? Importing libraries
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from datetime import date, datetime
 import json
 from extensions import *
+from datetime import date, datetime
 
 # ! Building main router
 router = Blueprint('router', __name__)
@@ -18,7 +18,7 @@ def load_user(user_id):
 @socket.on('notification-seen')
 def handle_notification_seen(id):
     notification = Notification.query.get(id)
-    if notification:
+    if notification and notification.recv != 0:
         db.session.delete(notification)
         db.session.commit()
 
@@ -77,16 +77,22 @@ def update_settings(data: dict):
 # | Context Processor
 @router.context_processor
 def inject_common_vars():
-    projects = Project.query.filter_by(created_by=current_user.id).all()
-    notifications = Notification.query.filter_by(recv=current_user.id).all()
+    projects = Project.query.filter_by(created_by=current_user.id)
     all_teams = Team.query.all()
     settings = UserSettings.query.filter_by(user_id=current_user.id).first()
-    active_projects = []
-    completed_projects = []
-    pending_projects = []
-    failed_projects = []
     teams = []
-    today = date.today()
+
+    active_projects = projects.filter_by(status='active').count()
+    completed_projects = projects.filter_by(status='completed').count()
+    pending_projects = projects.filter_by(status='pending').count()
+    failed_projects = projects.filter_by(status='failed').count()
+
+    notifications = Notification.query.filter(
+        or_(
+            Notification.recv == 0,
+            Notification.recv == current_user.id
+        )
+    ).all()
 
     if all_teams:
         for team in all_teams:
@@ -95,42 +101,18 @@ def inject_common_vars():
                     teams.append(team)
                     break
 
-    if len(projects) < 1:
-        return {
-            'active_projects': 0,
-            'completed_projects': 0,
-            'pending_projects': 0,
-            'failed_projects': 0,
-            'total_projects': 0,
-            'allteams': teams,
-            'notification_count': len(notifications),
-            'notifications': notifications,
-            'settings': settings,
-            'CURRENT_VERSION': CURRENT_VERSION,
-        }
-    
-
-    for project in projects:
-        if project.done:
-            completed_projects.append(project)
-        elif project.start_date > today:
-            pending_projects.append(project)
-        elif project.end_date < today and not project.done:
-            failed_projects.append(project)
-        elif project.start_date <= today <= project.end_date and not project.done:
-            active_projects.append(project)
-
     return {
-        'active_projects': len(active_projects),
-        'completed_projects': len(completed_projects),
-        'pending_projects': len(pending_projects),
-        'failed_projects': len(failed_projects),
-        'total_projects': len(projects),
+        'active_projects': active_projects,
+        'completed_projects': completed_projects,
+        'pending_projects': pending_projects,
+        'failed_projects': failed_projects,
+        'total_projects': projects.count(),
         'allteams': teams,
         'notification_count': len(notifications),
         'notifications': notifications,
         'settings': settings,
         'CURRENT_VERSION': CURRENT_VERSION,
+        'today': date.today()
     }
 
 # & Base route
@@ -164,47 +146,22 @@ def show_profile():
     # filter sociallink
     sociallinks = [link for link in sociallinks if link.link]
 
-    projects = Project.query.filter_by(created_by=userid).all()
-    active_projects = []
-    completed_projects = []
-    pending_projects = []
-    failed_projects = []
-    today = date.today()
-
-    if len(projects) < 1:
-        return render_template('pages/profile.html', data={
-            'user': user,
-            'sociallinks': sociallinks,
-            'skills': usersettings.skills,
-            'projects': {
-                'active': 0,
-                'completed': 0,
-                'pending': 0,
-                'failed': 0,
-                'total': 0,
-            }
-        })
-    
-    for project in projects:
-        if project.done:
-            completed_projects.append(project)
-        elif project.start_date > today:
-            pending_projects.append(project)
-        elif project.end_date < today and not project.done:
-            failed_projects.append(project)
-        elif project.start_date <= today <= project.end_date and not project.done:
-            active_projects.append(project)
+    projects = Project.query.filter_by(created_by=userid)
+    active_projects = projects.filter_by(status='active').count()
+    completed_projects = projects.filter_by(status='completed').count()
+    pending_projects = projects.filter_by(status='pending').count()
+    failed_projects = projects.filter_by(status='failed').count()
 
     return render_template('pages/profile.html', data={
         'user': user,
         'sociallinks': sociallinks,
         'skills': usersettings.skills,
         'projects': {
-            'active': len(active_projects),
-            'completed': len(completed_projects),
-            'pending': len(pending_projects),
-            'failed': len(failed_projects),
-            'total': len(projects),
+            'active': active_projects,
+            'completed': completed_projects,
+            'pending': pending_projects,
+            'failed': failed_projects,
+            'total': projects.count(),
         }
     })
 
@@ -248,7 +205,6 @@ def search_user():
     skill = request.args.get('skill')
 
     if skill:
-        skill = skill[1:]
         all_settings = UserSettings.query.all()
         users_with_skills = [user for user in all_settings if skill in user.skills]
         users = [User.query.get(user.user_id) for user in users_with_skills]

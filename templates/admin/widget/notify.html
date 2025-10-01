@@ -1,0 +1,22 @@
+<section class="popup-container" id="notify-popup">
+    <section class="popup-content column gap-20">
+        <div class="head row gap-20">
+            <button class="btn back-btn">
+                <img src="{{ url_for('static', filename='assets/icons/common/back.png') }}" alt="Back" class="icon">
+            </button>
+            <h2 class="h2">Notify users</h2>
+        </div>
+
+        <form action="{{ url_for('admin.notify') }}" method="post" class="form column gap-20">
+            <div class="form-content column gap-10">
+                <input required type="text" name="title" placeholder="Notification title" class="input">
+                <textarea required name="msg" placeholder="Notification message" class="input"></textarea>
+                <input type="url" name="attachment" placeholder="Notification attachment" class="input">
+            </div>
+
+            <button type="submit" class="filled-btn">Notify</button>
+        </form>
+    </section>
+</section>
+
+<script src="{{ url_for('static', filename='js/admin/popup.js') }}"></script>

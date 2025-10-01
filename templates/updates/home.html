@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Project docs &bull; Project Visualizer</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/updates/home.css') }}">
+</head>
+
+<body class="{{ settings.theme }} {{ settings.accent }}">
+    {% include 'components/msg.html' %}
+    {% include 'updates/header.html' %}
+    
+    <main class="main column gap-50">
+        <div class="overview column gap-10 v-center">
+            <h1 class="h1">What's New</h1>
+            <p class="para">Discover the latest updates, improvements, and features.</p>
+        </div>
+
+        <section class="updates column gap-20">
+            <h2 class="h2">Current</h2>
+            <div class="update-list column gap-20">
+                <div class="update row gap-20">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/common/update.png') }}" alt="Stable update" class="icon">
+                    </div>
+
+                    <div class="text-content column gap-10">
+                        <p class="mini"><time datetime="2025-10-01">Expected release: July 12, 2024</time> &bull; v.1.0.0</p>
+                        <a href="{{ url_for('app.announcements', version='1.0.0') }}" class="link column gap-10">
+                            <h3 class="h3">First stable version</h3>
+                            <p class="para">We're excited to announce the launch of our new 'Focus
+                                Mode', designed to help you minimize distractions and maximize
+                                productivity. This feature allows you to temporarily disable
+                                notifications and streamline your workspace.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="updates column gap-20">
+            <h2 class="h2">Upcoming</h2>
+            <div class="update-list column gap-20">
+                <div class="update row gap-20" id="projects-1">
+                    <div class="icon-content">
+                        <img src="{{ url_for('static', filename='assets/icons/common/project.png') }}" alt="Projects update" class="icon">
+                    </div>
+
+                    <div class="text-content column gap-10">
+                        <p class="mini">Coming Soon &bull; v1.1.0</p>
+                        <a href="{{ url_for('app.announcements', version='1.1.0') }}" class="link column gap-10">
+                            <h3 class="h3">Projects update</h3>
+                            <p class="para">Expect features like real-time document editing, integrated
+                                project management, and improved communication channels to make teamwork
+                                more seamless and efficient.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>

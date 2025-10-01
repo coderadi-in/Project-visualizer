@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Signup &bull; Project Visualizer</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/anim.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/auth.css') }}">
 </head>
 
 <body>
@@ -54,7 +53,7 @@
                             <hr class="divider">
 
                             <a href="/auth/login/google" class="link icon-btn">
-                                <img src="{{ url_for('static', filename='assets/icons/google.png') }}" alt="Google"
+                                <img src="{{ url_for('static', filename='assets/icons/common/google.png') }}" alt="Google"
                                     class="icon">
                                 <span class="text">Continue with Google</span>
                             </a>
@@ -65,18 +64,18 @@
                         <span class="text">Built by coderadi</span>
 
                         <div class="row gap-10">
-                            <a href="" class="link">
-                                <img src="{{ url_for('static', filename='assets/icons/email.png') }}" alt="Email"
+                            <a href="mailto:adiprofitcoder@gmail.com" class="link">
+                                <img src="{{ url_for('static', filename='assets/icons/common/email.png') }}" alt="Email"
                                     class="icon">
                             </a>
 
                             <a href="https://www.instagram.com/coderadi.in" class="link">
-                                <img src="{{ url_for('static', filename='assets/icons/insta.png') }}" alt="Insta"
+                                <img src="{{ url_for('static', filename='assets/icons/common/insta.png') }}" alt="Insta"
                                     class="icon">
                             </a>
 
                             <a href="https://github.com/coderadi-in" class="link">
-                                <img src="{{ url_for('static', filename='assets/icons/git.png') }}" alt="GitHub"
+                                <img src="{{ url_for('static', filename='assets/icons/common/git.png') }}" alt="GitHub"
                                     class="icon">
                             </a>
                         </div>

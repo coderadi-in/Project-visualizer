@@ -4,8 +4,10 @@
 from flask import current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO
-from flask_migrate import Migrate
-from sqlalchemy import func
+from flask_migrate import Migrate, init, stamp, migrate, upgrade
+from flask_apscheduler import APScheduler
+from flask_mail import Mail, Message
+from sqlalchemy import func, inspect, text, or_
 
 from werkzeug.security import (
     generate_password_hash as hashin,
@@ -20,15 +22,19 @@ from flask_login import (
 from authlib.integrations.flask_client import OAuth
 from werkzeug.utils import secure_filename
 from werkzeug.middleware.proxy_fix import ProxyFix
-from datetime import time
+from datetime import time, date
+import datetime
 import os
+import secrets
 
 # ! Building extensions
 db = SQLAlchemy()
 logger = LoginManager()
-migrate = Migrate()
+migrator = Migrate(directory='updates')
 socket = SocketIO()
 oauth = OAuth()
+mail = Mail()
+worker = APScheduler()
 
 # & Configure Google OAuth
 def init_oauth(server):
@@ -53,9 +59,11 @@ def init_oauth(server):
 def bind_extensions(server):
     db.init_app(server)
     logger.init_app(server)
-    migrate.init_app(server, db)
+    migrator.init_app(server, db)
     socket.init_app(server)
     oauth.init_app(server)
+    mail.init_app(server)
+    worker.init_app(server)
 
 # | User database model
 class User(db.Model, UserMixin):
@@ -64,9 +72,9 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
     bio = db.Column(db.Text(100), default="")
-    pic = db.Column(db.String, default='/static/assets/icons/profile.png')
-    password = db.Column(db.String(10))
-    passkey = db.Column(db.String(6))
+    pic = db.Column(db.String, default='/static/assets/icons/common/profile.png')
+    passkey = db.Column(db.String) # 6 digit code
+    password = db.Column(db.String)
 
 # | Project database model
 class Project(db.Model):
@@ -76,6 +84,7 @@ class Project(db.Model):
     title = db.Column(db.String, default="Untitled project")
     desc = db.Column(db.String(100))
     private = db.Column(db.Boolean, default=False)
+    status = db.Column(db.String) # [active, not-started, failed, completed]
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     done = db.Column(db.Boolean, default=False)
@@ -132,8 +141,6 @@ class UserSettings(db.Model):
     to_hours = db.Column(db.Time, default=time(17, 0))
     
     # * Security
-    passkey = db.Column(db.String) # 6 digit code
-    password = db.Column(db.String)
     password_rotation = db.Column(db.Boolean, default=False)
 
     # * Advanced
@@ -158,6 +165,12 @@ class Subscription(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String, nullable=False)
 
+# | Feedback database model
+class Feed(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    email = db.Column(db.String, nullable=False)
+    feed = db.Column(db.Text, nullable=False)
+
 # | Skills database model
 class Skill(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -171,9 +184,22 @@ class JoinReq(db.Model):
     name = db.Column(db.String, nullable=False)
     team_id = db.Column(db.Integer, nullable=False)
 
+# | Hosting database model
+class Hosting(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
+    charge = db.Column(db.Integer, nullable=False)
+
 # ! Initializing default variables
 CMD: list = ['@', '.', '!', '$']
-CURRENT_VERSION = 'v0.9.0'
+CURRENT_VERSION = 'v1.0.0'
+HOSTING_CHARGE = 768
+SKILLS_FILE = 'skills.json' # ! Skills file path
+QTY = 0
+FOLDERS = [
+    'static/public'
+]
 
 # & function to refresh contribution
 def refresh_contribution(project: Project):
@@ -192,3 +218,80 @@ def refresh_contribution(project: Project):
             contribution = round((done_objectives / all_objectives) * 100, 1) if (done_objectives > 0) else 0
             member.contribution = contribution
             db.session.commit()
+
+# & function to add basic details of the app
+def add_basic_details():
+    # * check hosting
+    if not Hosting.query.first():
+        print("Adding hosting details...")
+        hosting = Hosting(
+            start_date=date.today(),
+            end_date=date.today() + datetime.timedelta(days=30),
+            charge=768
+        )
+        db.session.add(hosting)
+        db.session.commit()
+        print("Added hosting details.")
+
+# & migration function
+def migrate_db(message="auto migration"):
+    """
+    Migrates the database with added new tables/columns
+
+    ## Parameters
+    ## `message`
+    - Labels the migration script.
+    - Default: `auto migration`
+    """
+
+    with current_app.app_context():
+        if (not os.path.exists('updates')):
+            init()
+            stamp()
+
+        # ? Migration the database update
+        migrate(message=message)
+        upgrade()
+
+# & Function to update project status
+def update_project_status(project: Project):
+    today = date.today()
+    project_objectives = Objective.query.filter_by(project_id=project.id).count()
+    done_objectives = Objective.query.filter_by(project_id=project.id, isdone=True).count()
+    project.status = 'pending'
+
+    if (project_objectives == 0) or (project.start_date > today):
+        project.status = 'pending'
+        db.session.commit()
+        return
+    
+    if (project_objectives != 0):
+        timeline = project.start_date <= today <= project.end_date
+        if (project_objectives == done_objectives) and (timeline):
+            project.status = 'completed'
+
+        elif (done_objectives < project_objectives) and (timeline):
+            project.status = 'active'
+
+        elif (done_objectives < project_objectives) and (not timeline):
+            project.status = 'failed'
+
+    db.session.commit()
+        
+# & Function to generate random passwords
+def set_random_pass(user_id: int):
+    psw = secrets.token_urlsafe(10)
+    user = User.query.get(user_id)
+    user.password = hashin(psw)
+    db.session.commit()
+    print(psw)
+
+    notification = Notification(
+        title="New password",
+        message=f"Your new app password is {psw}",
+        recv=user_id,
+        badge="app"
+    )
+
+    db.session.add(notification)
+    db.session.commit()

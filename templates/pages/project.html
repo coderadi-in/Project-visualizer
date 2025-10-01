@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{ data.project.title }} &bull; Project Visualizer</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/project.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/project.css') }}">
 </head>
 
 <body class="{{ settings.theme }} {{ settings.accent }}" data-chart-color="{{ settings.chart_color_schemes }}"
     data-chart-type="{{ settings.chart_type }}" data-accent="{{ settings.accent }}">
     {% include 'components/msg.html' %}
+    {% include 'components/notifications.html' %}
     {% include 'utils/project.html' %}
     {% include 'utils/objective.html' %}
     {% include 'utils/team.html' %}
-    {% include 'utils/notifications.html' %}
 
     <section class="app-content">
         {% include 'components/sidebar.html' %}
@@ -28,12 +28,15 @@
 
             <main class="main column gap-20">
                 <div class="title res-row h-sb gap-20">
-                    <h2 class="h2">{{ data.project.title }}</h2>
+                    <div class="row gap-10">
+                        <h2 class="h2">{{ data.project.title }}</h2>
+                        <span class="text tag" id="{{ data.project.status }}">{{ data.project.status }}</span>
+                    </div>
                     <span class="mini" id="project-id" style="display: none;">{{ data.project.id }}</span>
-                    <span class="mini" id="viewer-id" style="display: none;">{{ data.viewer.id }}</span>
-                    {% if data.viewer.is_admin %}
+                    <span class="mini" id="admin-id" style="display: none;">{{ data.admin.id }}</span>
+                    {% if data.admin.is_admin %}
                     <a href="/projects/{{ data.project.id }}/settings/" class="link icon-btn">
-                        <img src="{{ url_for('static', filename='assets/icons/settings.png') }}" alt="Settings" class="icon">
+                        <img src="{{ url_for('static', filename='assets/icons/common/settings.png') }}" alt="Settings" class="icon">
                         <span class="text">Settings</span>
                     </a>
                     {% endif %}
@@ -70,7 +73,7 @@
 
                         {% if data.access %}
                         <button class="icon-btn" id="add-objective">
-                            <img src="{{ url_for('static', filename='assets/icons/add-'+settings.theme+'.png') }}"
+                            <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/add.png') }}"
                                 alt="Add" class="icon">
                             <span class="text">Add objective</span>
                         </button>
@@ -82,21 +85,21 @@
                         <div class="objective row h-sb gap-10">
                             <span class="text">{{ objective.task }}</span>
 
-                            {% if data.access %}
+                            {% if data.access and data.project.status == 'active' %}
                             <div class="options row gap-10">
                                 <button class="btn delete-objective" data-obj-id="{{ objective.id }}">
-                                    <img src="{{ url_for('static', filename='assets/icons/delete-'+settings.theme+'.png') }}"
+                                    <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/delete.png') }}"
                                         alt="Delete" class="icon">
                                 </button>
 
                                 {% if objective.isdone %}
                                 <button class="btn mark-objective">
-                                    <img src="{{ url_for('static', filename='assets/icons/mark-'+settings.theme+'.png') }}"
+                                    <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/mark.png') }}"
                                         alt="delete" class="icon checkbox" data-obj-id="{{ objective.id }}">
                                 </button>
                                 {% else %}
                                 <button class="btn">
-                                    <img src="{{ url_for('static', filename='assets/icons/checkbox-'+settings.theme+'.png') }}"
+                                    <img src="{{ url_for('static', filename='assets/icons/'+settings.theme+'/checkbox.png') }}"
                                         alt="delete" class="icon checkbox" data-obj-id="{{ objective.id }}">
                                 </button>
                                 {% endif %}
@@ -125,10 +128,8 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
-        crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/project.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/pages/project.js') }}"></script>
 </body>
 
 </html>

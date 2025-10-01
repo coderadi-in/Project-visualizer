@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Settings &bull; Project Visualizer</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/icon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/icons/common/icon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages/settings.css') }}">
 </head>
 
 <body class="{{ settings.theme }} {{ settings.accent }}">
     {% include 'components/msg.html' %}
+    {% include 'components/notifications.html' %}
     {% include 'utils/project.html' %}
     {% include 'utils/team.html' %}
-    {% include 'utils/notifications.html' %}
 
     <section class="app-content">
         {% include 'components/sidebar.html' %}
@@ -74,13 +74,13 @@
 
                         <div class="options res-row gap-10">
                             <button class="icon-btn" id="doughnut">
-                                <img src="{{ url_for('static', filename='assets/icons/pie.png') }}" alt="Doughnut"
+                                <img src="{{ url_for('static', filename='assets/icons/common/pie.png') }}" alt="Doughnut"
                                     class="icon">
                                 <span class="text">Doughnut</span>
                             </button>
 
                             <button class="icon-btn" id="bar">
-                                <img src="{{ url_for('static', filename='assets/icons/bar.png') }}" alt="Bar"
+                                <img src="{{ url_for('static', filename='assets/icons/common/bar.png') }}" alt="Bar"
                                     class="icon">
                                 <span class="text">Bar</span>
                             </button>
@@ -149,19 +149,17 @@
                         <div class="switch-box">
                             <div class="switch-ball"></div>
                         </div>
-
-                        <span class="mini">This feature will be available from v1.0.0 .</span>
                     </div>
 
                     <div class="res-row gap-10" id="danger">
                         <a href="/auth/logout" class="link icon-btn">
-                            <img src="{{ url_for('static', filename='assets/icons/logout.png') }}" alt="Logout"
+                            <img src="{{ url_for('static', filename='assets/icons/common/logout.png') }}" alt="Logout"
                                 class="icon">
                             <span class="text">Logout</span>
                         </a>
 
                         <a class="link icon-btn" id="delete-account">
-                            <img src="{{ url_for('static', filename='assets/icons/del-acc.png') }}" alt="Logout"
+                            <img src="{{ url_for('static', filename='assets/icons/common/del-acc.png') }}" alt="Logout"
                                 class="icon">
                             <span class="text">Delete account</span>
                         </a>
@@ -183,10 +181,8 @@
         </section>
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
-        crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/pages/settings.js') }}"></script>
 </body>
 
 </html>
