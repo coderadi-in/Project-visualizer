@@ -44,7 +44,7 @@
 ### 🔒 **Privacy Controls**
 - Public/Private project visibility settings
 - Team-based access controls
-- Secure data handling (Password rotation system coming in v1.0.0)
+- Secure data handling (Password rotation system)
 
 ### 📱 **Universal Access**
 - Fully responsive web application
@@ -97,7 +97,7 @@
 - **Team-Based Access**: Control who sees your projects
 - **Secure Authentication**: Google OAuth and encrypted credentials
 
-### Coming in v1.0.0:
+### New features:
 - **Automated Password Rotation**: Enhanced security with 3-day password cycles
 - **Advanced Privacy Settings**: Granular control over data visibility
 - **Encrypted Communications**: End-to-end protection for sensitive data
@@ -126,13 +126,11 @@
 
 ---
 
-## Roadmap: v1.0.0 Preview
+## What's new
 
-### Enhanced Features Coming Soon:
+### Enhanced Features:
 - **Feedback System**: In-app feature suggestions and bug reporting
 - **Advanced Analytics**: Detailed project insights and forecasting
-- **Integration Options**: API access and third-party integrations
-- **Mobile Application**: Dedicated iOS and Android apps
 
 ---
 
@@ -144,11 +142,9 @@ We're committed to continuous improvement based on your needs:
 - **Email**: adiprofitcoder@gmail.com
 - **Instagram**: [@py.cod3](https://instagram.com/py.cod3) for quick updates and support
 
-### **Feedback Channels (Coming in v1.0.0):**
+### **Feedback system:**
 - In-app feedback system
-- Feature request voting
 - Bug reporting portal
-- Community discussions
 
 ### **Live Application:**
 Access the current version at: **[https://visualizer.coderadi.in](https://visualizer.coderadi.in)**
@@ -165,7 +161,7 @@ Access the current version at: **[https://visualizer.coderadi.in](https://visual
 
 ---
 
-*Project Visualizer v1.0.0. - Transforming how tech teams collaborate and succeed* 🚀
+*Project Visualizer v1.0.0 - Transforming how tech teams collaborate and succeed* 🚀
 
 **Get Started Today**: [https://visualizer.coderadi.in](https://visualizer.coderadi.in)
 
